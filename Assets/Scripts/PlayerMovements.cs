@@ -54,7 +54,7 @@ public class PlayerMovements : MonoBehaviour
     }
 
     /*
-     * Uograde speed
+     * Upgrade speed
      */
     public void UpGear(float delta_time)
     {
