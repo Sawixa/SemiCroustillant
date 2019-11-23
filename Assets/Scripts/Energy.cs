@@ -34,7 +34,7 @@ public class Energy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        _energyLevel = Mathf.Clamp(_energyLevel + (_energyRegen - _energyCoost.Evaluate(_playerMovements.speed.magnitude/_deb))*Time.deltaTime, 0f, 100f);
+        _energyLevel = Mathf.Clamp(_energyLevel + (_energyRegen - _energyCoost.Evaluate(_playerMovements.Speed.magnitude/_deb))*Time.deltaTime, 0f, 100f);
     }
 
 
