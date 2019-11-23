@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Rigidbody2D))]
 public class PlayerMovements : MonoBehaviour
 {
    
@@ -28,6 +29,7 @@ public class PlayerMovements : MonoBehaviour
     [SerializeField] private float _dashMultiplier;
      void Start()
     {
+        _rigidBody = transform.GetComponent<Rigidbody2D>();
         _gear = 1;
         Debug.Assert(_rigidBody != null);
         Debug.Assert(_maxSpeeds[0] < _maxSpeeds[1] && _maxSpeeds[1] < _maxSpeeds[2]);
@@ -42,15 +44,16 @@ public class PlayerMovements : MonoBehaviour
 
     public void Move(Vector2 delta)
     {
-        Vector2 newpos = Position + delta * _maxSpeeds[_gear];
-        _speed = delta;//for Dash()
-        _rigidBody.MovePosition(newpos);        
+        //Vector2 newpos = Position + delta * _maxSpeeds[_gear];
+
+        _speed = delta *_maxSpeeds[_gear] ;//for Dash()
+        _rigidBody.velocity = _speed;        
     }
 
     public void Dash()
     {
-        Vector2 newpos = Position + _speed * _maxSpeeds[_gear] * _dashMultiplier;
-        _rigidBody.MovePosition(newpos);
+        Debug.Log("Dash");
+        _rigidBody.velocity = _speed * _dashMultiplier;
     }
 
     /*
