@@ -5,9 +5,21 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 public class PlayerMovements : MonoBehaviour
 {
-   
     private Vector2 _speed;
-    
+
+    public Vector2 Speed
+    {
+        get
+        {
+            return _speed;
+        }
+
+        private set
+        {
+            _speed = value;
+        }
+    }
+
     public Vector2 Position
     {
         get
@@ -48,16 +60,17 @@ public class PlayerMovements : MonoBehaviour
 
     public void Move(Vector2 delta)
     {
-        //Vector2 newpos = Position + delta * _maxSpeeds[_gear];
-
+        
         _speed = delta *_maxSpeeds[_gear] ;//for Dash()
         _speed *= _isDashing ? _dashMultiplier : 1;
         _rigidBody.velocity = _speed;        
+
     }
 
     public void Dash()
     {
         Debug.Log("Dash");
+
         StartCoroutine(DashCoroutine());
         //_rigidBody.velocity = _speed * _dashMultiplier;
     }

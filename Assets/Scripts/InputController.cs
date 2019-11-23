@@ -14,7 +14,10 @@ public class InputController : MonoBehaviour
     float _timeOfLastDash;
     float __speedTransitionTime;
 
-    //[SerializeField] GameObject _pausePanel;
+
+    [Tooltip("Menu de pause")]
+    [SerializeField] GameObject _pausePanel;
+
     bool _pauseState = false;
 
 
