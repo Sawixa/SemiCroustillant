@@ -8,11 +8,14 @@ public class InputController : MonoBehaviour
     float _horizontalInput;
     float _verticalInput;
     PlayerMovements _playerMovements;
+    private Energy _energy;
 
     bool _canDash; // maye be useless
     [SerializeField]float _dashCD; // dash cool down
     float _timeOfLastDash;
     float _speedTransitionTime;
+    
+    [SerializeField, Range(0, 100)] private float _dashCost;
 
 
     [Tooltip("Menu de pause")]
@@ -24,6 +27,7 @@ public class InputController : MonoBehaviour
     private void Awake()
     {
         _playerMovements = GetComponent<PlayerMovements>();
+        _energy = GetComponent<Energy>();
         _timeOfLastDash = Time.time;
     }
 
@@ -57,8 +61,9 @@ public class InputController : MonoBehaviour
         if (Input.GetButton("Dash"))
         {
             float curTime = Time.time;
-            if (curTime > _timeOfLastDash + _dashCD)
+            if (curTime > _timeOfLastDash + _dashCD && _energy.energy >= _dashCost + 5)
             {
+                _energy.add(-_dashCost);
                 _playerMovements.Dash();
                 _timeOfLastDash = curTime;
             }
