@@ -9,7 +9,7 @@ using UnityEngine.Experimental.Rendering.LWRP;
 public class Energy : MonoBehaviour
 {
 
-    [SerializeField, Range(0,100)] private float _energyLevel;
+    private float _energyLevel;
 
     public float energy => this._energyLevel;
 
@@ -20,16 +20,28 @@ public class Energy : MonoBehaviour
 
     [SerializeField] private AnimationCurve _lightRadius;
 
+    [SerializeField] private LayerMask _ennemyLayer;
+
+    [SerializeField] private float _damageRecoveryTime;
+
+    [SerializeField] private float _blinkTime;
+    [SerializeField] private float _blinkIntensity;
+    [SerializeField] private Color _blinkColor;
+
+    private float _timeSinceDamaged;
+
     private bool dying;
 
     //Internal
     private PlayerMovements _playerMovements;
     private Light2D _light2D;
+    private Rigidbody2D _rigidBody;
 
     private void Awake()
     {
         _playerMovements = GetComponent<PlayerMovements>();
         _light2D = GetComponentInChildren<Light2D>();
+        _rigidBody = GetComponent<Rigidbody2D>();
     }
 
     // Start is called before the first frame update
@@ -56,6 +68,7 @@ public class Energy : MonoBehaviour
             //StartCoroutine(Die());
         }
 
+        _timeSinceDamaged += Time.deltaTime;
 
     }
 
@@ -70,5 +83,33 @@ public class Energy : MonoBehaviour
         dying = true;
         yield return new WaitForSeconds(2f);
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.layer == Mathf.RoundToInt(Mathf.Log(_ennemyLayer.value, 2)) && _timeSinceDamaged > _damageRecoveryTime + float.Epsilon)
+        {
+            _timeSinceDamaged = 0f;
+            EnnemyIA ennemy = collision.gameObject.GetComponent<EnnemyIA>();
+            Debug.Assert(ennemy != null);
+            _energyLevel = Mathf.Clamp(_energyLevel - ennemy.EnergyDamage, 0, 100);
+            StartCoroutine(Blink());
+        }
+    }
+
+    private IEnumerator Blink()
+    {
+        float intensity = _light2D.intensity;
+        Color color = _light2D.color;
+        while (_timeSinceDamaged < _damageRecoveryTime - float.Epsilon)
+        {
+            _light2D.intensity = _blinkIntensity;
+            _light2D.color = _blinkColor;
+            yield return new WaitForSeconds(_blinkTime);
+            _light2D.intensity = intensity;
+            _light2D.color = color;
+            yield return new WaitForSeconds(_blinkTime);
+        }
+        yield return null;
     }
 }
