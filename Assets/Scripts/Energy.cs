@@ -18,16 +18,24 @@ public class Energy : MonoBehaviour
 
     [SerializeField] private AnimationCurve _lightRadius;
 
+    [SerializeField] private LayerMask _ennemyLayer;
+
+    [SerializeField] private float _damageRecoveryTime;
+
+    private float _timeSinceDamaged;
+
     private bool dying;
 
     //Internal
     private PlayerMovements _playerMovements;
     private Light2D _light2D;
+    private Rigidbody2D _rigidBody;
 
     private void Awake()
     {
         _playerMovements = GetComponent<PlayerMovements>();
         _light2D = GetComponentInChildren<Light2D>();
+        _rigidBody = GetComponent<Rigidbody2D>();
     }
 
     // Start is called before the first frame update
@@ -53,6 +61,7 @@ public class Energy : MonoBehaviour
             //StartCoroutine(Die());
         }
 
+        _timeSinceDamaged += Time.deltaTime;
 
     }
 
@@ -62,5 +71,17 @@ public class Energy : MonoBehaviour
         dying = true;
         yield return new WaitForSeconds(2f);
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.layer == Mathf.RoundToInt(Mathf.Log(_ennemyLayer.value, 2)) && _timeSinceDamaged > _damageRecoveryTime + float.Epsilon)
+        {
+            _timeSinceDamaged = 0f;
+            EnnemyIA ennemy = collision.gameObject.GetComponent<EnnemyIA>();
+            Debug.Assert(ennemy != null);
+            _energyLevel = Mathf.Clamp(_energyLevel - ennemy.EnergyDamage, 0, 100);
+            //_rigidBody.AddForce((Vector2)(collision.transform.position - transform.position)*ennemy.KnockBack,ForceMode2D.Impulse);
+        }
     }
 }
