@@ -9,6 +9,9 @@ EditorBuildSettings:
     path: Assets/Scenes/SplashScreen.unity
     guid: 3a356cc26adac2c4dba9a20df3be07a5
   - enabled: 1
+    path: Assets/Scenes/Niveau1.unity
+    guid: 7d7d2dbc988d8444fac90bffe46abfbb
+  - enabled: 0
     path: Assets/Scenes/BrethScene.unity
     guid: 8a4004b7a18f04143b07ba62541f2385
   m_configObjects: {}
