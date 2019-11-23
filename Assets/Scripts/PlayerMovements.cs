@@ -5,7 +5,20 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 public class PlayerMovements : MonoBehaviour
 {
-    [HideInInspector] public Vector2 speed;
+    private Vector2 _speed;
+
+    public Vector2 Speed
+    {
+        get
+        {
+            return _speed;
+        }
+
+        private set
+        {
+            _speed = value;
+        }
+    }
 
     public Vector2 Position
     {
@@ -26,6 +39,8 @@ public class PlayerMovements : MonoBehaviour
     private int _gear; // 0 1 or 2
 
     [SerializeField] private float _dashMultiplier;
+    [SerializeField] private float _dashLength;
+    private bool _isDashing;
      void Start()
     {
         _rigidBody = transform.GetComponent<Rigidbody2D>();
@@ -33,6 +48,8 @@ public class PlayerMovements : MonoBehaviour
         Debug.Assert(_rigidBody != null);
         Debug.Assert(_maxSpeeds[0] < _maxSpeeds[1] && _maxSpeeds[1] < _maxSpeeds[2]);
         Debug.Assert(_dashMultiplier > 0);
+        Debug.Assert(_dashLength > 0);
+        _isDashing = false;
     }
 
     // Update is called once per frame
@@ -43,16 +60,26 @@ public class PlayerMovements : MonoBehaviour
 
     public void Move(Vector2 delta)
     {
-        //Vector2 newpos = Position + delta * _maxSpeeds[_gear];
+        
+        _speed = delta *_maxSpeeds[_gear] ;//for Dash()
+        _speed *= _isDashing ? _dashMultiplier : 1;
+        _rigidBody.velocity = _speed;        
 
-        speed = delta *_maxSpeeds[_gear] ;//for Dash()
-        _rigidBody.velocity = speed;        
     }
 
     public void Dash()
     {
         Debug.Log("Dash");
-        _rigidBody.velocity = speed * _dashMultiplier;
+
+        StartCoroutine(DashCoroutine());
+        //_rigidBody.velocity = _speed * _dashMultiplier;
+    }
+
+    IEnumerator DashCoroutine()
+    {
+        _isDashing = true;
+        yield return new WaitForSeconds(_dashLength);
+        _isDashing = false;
     }
 
     /*

@@ -9,9 +9,9 @@ public class InputController : MonoBehaviour
     float _verticalInput;
     PlayerMovements _playerMovements;
 
-    bool _canDash;
-    float _dashCD;
-    float _timer;
+    bool _canDash; // maye be useless
+    [SerializeField]float _dashCD; // dash cool down
+    float _timeOfLastDash;
     float _speedTransitionTime;
 
 
@@ -24,6 +24,7 @@ public class InputController : MonoBehaviour
     private void Awake()
     {
         _playerMovements = GetComponent<PlayerMovements>();
+        _timeOfLastDash = Time.time;
     }
 
     void Update()
@@ -53,9 +54,15 @@ public class InputController : MonoBehaviour
 
 
         //Dash
-        if (Input.GetButton("Dash") && _timer < _dashCD)
+        if (Input.GetButton("Dash"))
         {
-            _playerMovements.Dash();
+            float curTime = Time.time;
+            if (curTime > _timeOfLastDash + _dashCD)
+            {
+                _playerMovements.Dash();
+                _timeOfLastDash = curTime;
+            }
+            
         }
 
     }
