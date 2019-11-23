@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2809145506195336030}
   - component: {fileID: 1048939250109081172}
   m_Layer: 0
-  m_Name: Essaim1
+  m_Name: Swarm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -70,7 +70,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 00a93b9339c1c49469491070e6444658, type: 3}
+  m_Sprite: {fileID: 21300000, guid: fb7c3c54c19ff1945a61b1018bc55358, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
