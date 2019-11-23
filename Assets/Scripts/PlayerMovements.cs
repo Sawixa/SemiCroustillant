@@ -35,7 +35,7 @@ public class PlayerMovements : MonoBehaviour
 
     private Rigidbody2D _rigidBody;
 
-    [SerializeField] private Animator _animator;
+    private Animator _animator;
     
     [Tooltip("0:lent\n1:base\n2:rapide")]
     [SerializeField] private float[] _maxSpeeds = new float[3];
@@ -78,6 +78,7 @@ public class PlayerMovements : MonoBehaviour
     {
         float v = _speed.magnitude;
         double ratio = 1.0/2.0;
+        //Debug.Log("Speed: "+v.ToString()+" Animator: "+_animator.GetInteger("Speed").ToString());
         if( v <= _maxSpeeds[0]* (1-ratio)+_maxSpeeds[1]*ratio)
         {
             _animator.SetInteger("Speed", 0);
