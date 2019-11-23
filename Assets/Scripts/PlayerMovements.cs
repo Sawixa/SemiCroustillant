@@ -77,10 +77,12 @@ public class PlayerMovements : MonoBehaviour
     void Update()
     {
         float v = _speed.magnitude;
-        if( v <= _maxSpeeds[0]*2/3+_maxSpeeds[1]*1/3 )
+        double ratio = 1.0/2.0;
+        Debug.Log(v.ToString());
+        if( v <= _maxSpeeds[0]* (1-ratio)+_maxSpeeds[1]*ratio )
         {
             _animator.SetInteger("Speed", 0);
-        } else if( v >= _maxSpeeds[2]*2/3+_maxSpeeds[1]*1/3 )
+        } else if( v >= _maxSpeeds[2]*(1-ratio)+_maxSpeeds[1]*ratio )
         {
             _animator.SetInteger("Speed", 2);
         } else
