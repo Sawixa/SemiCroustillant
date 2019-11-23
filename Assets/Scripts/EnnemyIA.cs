@@ -4,12 +4,12 @@ using UnityEngine;
 using UnityEngine.Experimental.Rendering.LWRP;
 
 [RequireComponent(typeof(Rigidbody2D))]
-public class EnnemyIA : MonoBehaviour
+public abstract class EnnemyIA : MonoBehaviour
 {
-    [SerializeField] private Light2D _playerLight;
+    protected Light2D _playerLight;
 
 
-    private Vector2 Position
+    protected Vector2 Position
     {
         get
         {
@@ -23,10 +23,12 @@ public class EnnemyIA : MonoBehaviour
 
     private bool _isSpotted = false;
 
-    [SerializeField] private float _step;
+    [SerializeField] protected float _step;
     [SerializeField] private AnimationCurve _spottedSpeed;
     private float _speed;
     private float _timeSinceSpotted;
+
+    protected Vector2 _dir;
 
     //Internal
     private Rigidbody2D _rigidBody;
@@ -40,6 +42,8 @@ public class EnnemyIA : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        _playerLight = FindObjectOfType<PlayerMovements>().GetComponentInChildren<Light2D>();
+        _dir = Vector2.left;
     }
 
     // Update is called once per frame
@@ -58,16 +62,16 @@ public class EnnemyIA : MonoBehaviour
 
         if (_isSpotted)
         {
-            float angle = Vector2.SignedAngle(transform.right, (Vector2)_playerLight.transform.position - Position);
-            float zDir = (Mathf.Abs(angle) > _step) ? (transform.rotation.eulerAngles.z - Mathf.Sign(angle) * _step) : (transform.rotation.eulerAngles.z - angle);
-            transform.rotation = Quaternion.Euler(0, 180, zDir);
-
-            
+            Turn();
 
             _timeSinceSpotted += Time.deltaTime;
         }
-        
-        Position += new Vector2(transform.right.x, transform.right.y) * _speed * Time.deltaTime;
+
+        Position += _dir * _speed * Time.deltaTime;
+    }
+
+    protected virtual void Turn()
+    {
     }
 
     private void OnBecameInvisible()
