@@ -86,7 +86,7 @@ GameObject:
   - component: {fileID: 584362590}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -192,7 +192,7 @@ MonoBehaviour:
   - 5
   - 10
   - 15
-  _dashMultiplier: 1.5
+  _dashMultiplier: 5
   _dashLength: 0.2
 --- !u!114 &8420802462112974873
 MonoBehaviour:

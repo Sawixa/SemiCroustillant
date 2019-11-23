@@ -6,7 +6,7 @@ using UnityEngine;
 public class PlayerMovements : MonoBehaviour
 {
     private Vector2 _speed;
-
+    
     public Vector2 Speed
     {
         get
@@ -35,6 +35,8 @@ public class PlayerMovements : MonoBehaviour
 
     private Rigidbody2D _rigidBody;
 
+    [SerializeField] private Animator _animator;
+    
     [Tooltip("0:lent\n1:base\n2:rapide")]
     [SerializeField] private float[] _maxSpeeds = new float[3];
     public float[] MaxSpeeds
@@ -62,6 +64,7 @@ public class PlayerMovements : MonoBehaviour
      void Start()
     {
         _rigidBody = transform.GetComponent<Rigidbody2D>();
+        _animator = GetComponent<Animator>();
         _gear = 1;
         Debug.Assert(_rigidBody != null);
         Debug.Assert(MaxSpeeds[0] < MaxSpeeds[1] && MaxSpeeds[1] < MaxSpeeds[2]);
@@ -107,7 +110,7 @@ public class PlayerMovements : MonoBehaviour
         if (_gear >= 2)
             _gear = 2;
         else
-            ++_gear;
+            ++_gear;_animator.SetTrigger("UpGear");
     }
 
     /*
@@ -118,6 +121,6 @@ public class PlayerMovements : MonoBehaviour
         if (_gear <= 0)
             _gear = 0;
         else
-            --_gear;
+            --_gear;_animator.SetTrigger("DownGear");
     }
 }
