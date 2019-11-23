@@ -35,7 +35,19 @@ public class PlayerMovements : MonoBehaviour
 
     private Rigidbody2D _rigidBody;
 
+    [Tooltip("0:lent\n1:base\n2:rapide")]
     [SerializeField] private float[] _maxSpeeds = new float[3];
+    public float[] MaxSpeeds
+    {
+        get
+        {
+            return _maxSpeeds;
+        }
+        private set
+        {
+            _maxSpeeds = value;
+        }
+    }
     private int _gear; // 0 1 or 2
 
     [SerializeField] private float _dashMultiplier;
@@ -46,7 +58,7 @@ public class PlayerMovements : MonoBehaviour
         _rigidBody = transform.GetComponent<Rigidbody2D>();
         _gear = 1;
         Debug.Assert(_rigidBody != null);
-        Debug.Assert(_maxSpeeds[0] < _maxSpeeds[1] && _maxSpeeds[1] < _maxSpeeds[2]);
+        Debug.Assert(MaxSpeeds[0] < MaxSpeeds[1] && MaxSpeeds[1] < MaxSpeeds[2]);
         Debug.Assert(_dashMultiplier > 0);
         Debug.Assert(_dashLength > 0);
         _isDashing = false;

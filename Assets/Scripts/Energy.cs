@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.Experimental.Rendering.LWRP;
 
 [RequireComponent(typeof(PlayerMovements))]
@@ -17,8 +18,7 @@ public class Energy : MonoBehaviour
 
     [SerializeField] private AnimationCurve _lightRadius;
 
-    //TODO Remove, get value from pM
-    [SerializeField] private float _deb;
+    private bool dying;
 
     //Internal
     private PlayerMovements _playerMovements;
@@ -39,9 +39,27 @@ public class Energy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        _energyLevel = Mathf.Clamp(_energyLevel + (_energyRegen - _energyCost.Evaluate(_playerMovements.Speed.magnitude/_deb))*Time.deltaTime, 0f, 100f);
-        _light2D.pointLightOuterRadius = _lightRadius.Evaluate(_energyLevel / 100f);
+
+        //clamp new energy level between 0 and 100
+        if (!dying)
+        {
+            Debug.Assert(_playerMovements.MaxSpeeds[_playerMovements.MaxSpeeds.Length - 1] > float.Epsilon, "Vitesse maximale nulle.");
+            _energyLevel = Mathf.Clamp(_energyLevel + (_energyRegen - _energyCost.Evaluate(_playerMovements.Speed.magnitude / _playerMovements.MaxSpeeds[_playerMovements.MaxSpeeds.Length - 1])) * Time.deltaTime, 0f, 100f);
+            _light2D.pointLightOuterRadius = _lightRadius.Evaluate(_energyLevel / 100f);
+        }
+
+        if (_energyLevel < float.Epsilon && !dying)
+        {
+            StartCoroutine(Die());
+        }
+
     }
 
-
+    private IEnumerator Die()
+    {
+        Array.Clear(_playerMovements.MaxSpeeds, 0, _playerMovements.MaxSpeeds.Length);
+        dying = true;
+        yield return new WaitForSeconds(2f);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
 }
