@@ -24,6 +24,10 @@ public class Energy : MonoBehaviour
 
     [SerializeField] private float _damageRecoveryTime;
 
+    [SerializeField] private float _blinkTime;
+    [SerializeField] private float _blinkIntensity;
+    [SerializeField] private Color _blinkColor;
+
     private float _timeSinceDamaged;
 
     private bool dying;
@@ -89,7 +93,23 @@ public class Energy : MonoBehaviour
             EnnemyIA ennemy = collision.gameObject.GetComponent<EnnemyIA>();
             Debug.Assert(ennemy != null);
             _energyLevel = Mathf.Clamp(_energyLevel - ennemy.EnergyDamage, 0, 100);
-            //_rigidBody.AddForce((Vector2)(collision.transform.position - transform.position)*ennemy.KnockBack,ForceMode2D.Impulse);
+            StartCoroutine(Blink());
         }
+    }
+
+    private IEnumerator Blink()
+    {
+        float intensity = _light2D.intensity;
+        Color color = _light2D.color;
+        while (_timeSinceDamaged < _damageRecoveryTime - float.Epsilon)
+        {
+            _light2D.intensity = _blinkIntensity;
+            _light2D.color = _blinkColor;
+            yield return new WaitForSeconds(_blinkTime);
+            _light2D.intensity = intensity;
+            _light2D.color = color;
+            yield return new WaitForSeconds(_blinkTime);
+        }
+        yield return null;
     }
 }
