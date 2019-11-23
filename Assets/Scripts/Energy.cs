@@ -9,7 +9,7 @@ using UnityEngine.Experimental.Rendering.LWRP;
 public class Energy : MonoBehaviour
 {
 
-    [SerializeField, Range(0,100)] private float _energyLevel;
+    private float _energyLevel;
 
     [Tooltip("Regain d'énergie")]
     [SerializeField] private float _energyRegen;
