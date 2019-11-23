@@ -14,13 +14,14 @@ public class InputController : MonoBehaviour
     float _timer;
     float __speedTransitionTime;
 
+    [Tooltip("Menu de pause")]
     [SerializeField] GameObject _pausePanel;
     bool _pauseState = false;
 
 
     private void Awake()
     {
-
+        _playerMovements = GetComponent<PlayerMovements>();
     }
 
     void Update()

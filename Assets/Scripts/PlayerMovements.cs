@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class PlayerMovements : MonoBehaviour
 {
-    // Start is called before the first frame update
-    private Vector2 _speed;
+    [HideInInspector] public Vector2 speed;
 
     //private Vector2 _position;
     public Vector2 Position
