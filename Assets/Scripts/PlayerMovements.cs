@@ -35,21 +35,21 @@ public class PlayerMovements : MonoBehaviour
         
     }
 
-    void Move(Vector2 delta)
+    public void Move(Vector2 delta)
     {
         //TODO
         
     }
 
-    void Dash()
+    public void Dash()
     {
         //TODO
     }
 
     /*
-     * Uograde speed
+     * Upgrade speed
      */
-    void UpGear(float delta_time)
+    public void UpGear(float delta_time)
     {
         //TODO
     }
@@ -57,7 +57,7 @@ public class PlayerMovements : MonoBehaviour
     /*
      * downgrade speed
      */
-    void DownGear(float delta_time)
+    public void DownGear(float delta_time)
     {
         //TODO
     }
