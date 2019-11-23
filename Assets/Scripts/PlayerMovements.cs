@@ -50,6 +50,7 @@ public class PlayerMovements : MonoBehaviour
     public void Dash()
     {
         Vector2 newpos = Position + _speed * _maxSpeeds[_gear] * _dashMultiplier;
+        _rigidBody.MovePosition(newpos);
     }
 
     /*
