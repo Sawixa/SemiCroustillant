@@ -8,16 +8,19 @@ public class Dialogs : MonoBehaviour
     [SerializeField] TextMeshProUGUI _textDisplay;
     [SerializeField] string[] _sentences;
     [SerializeField] GameObject[] _speakers;
+    [SerializeField] int[] _sentenceSpeaker;
+
     int _index;
     [SerializeField] float _typingSpeed = .03f;
 
     [SerializeField] GameObject _continueButton;
-    [SerializeField] GameObject _flash;
-    [SerializeField] Animator _displayTextAnim;
+    Animator _dialogAnimator;
 
 
     private void Start()
     {
+        _dialogAnimator = GetComponent<Animator>();
+        _textDisplay.text = "";
         StartCoroutine(Type());
     }
 
@@ -44,8 +47,17 @@ public class Dialogs : MonoBehaviour
     public void NextSentence()
     {
         // SFX ?
-        _displayTextAnim.SetTrigger("ShowText");
+        _dialogAnimator.SetTrigger("ShowText");
         _continueButton.SetActive(false);
+
+        if (_index < _sentenceSpeaker.Length)
+        {
+            foreach(GameObject g in _speakers)
+            {
+                g.SetActive(false);
+            }
+            _speakers[_sentenceSpeaker[_index]].SetActive(true);
+        }
 
         if (_index < _sentences.Length - 1)
         {
@@ -56,8 +68,19 @@ public class Dialogs : MonoBehaviour
         else
         {
             _textDisplay.text = "";
-            _flash.SetActive(true);
-            gameObject.SetActive(false);
+            _dialogAnimator.SetTrigger("Disappear");
+            
+            Invoke("Hide", 1.2f);
         }
+    }
+
+    void ChangeSpeaker(int id)
+    {
+        _speakers[id].SetActive(true);
+    }
+
+    void Hide()
+    {
+        gameObject.SetActive(false);
     }
 }
