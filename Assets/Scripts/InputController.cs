@@ -12,7 +12,7 @@ public class InputController : MonoBehaviour
     bool _canDash; // maye be useless
     [SerializeField]float _dashCD; // dash cool down
     float _timeOfLastDash;
-    float __speedTransitionTime;
+    float _speedTransitionTime;
 
 
     [Tooltip("Menu de pause")]
@@ -38,12 +38,12 @@ public class InputController : MonoBehaviour
         // Gear Up
         if (Input.GetButtonDown("GearUp"))
         {
-            _playerMovements.UpGear(__speedTransitionTime);
+            _playerMovements.UpGear(_speedTransitionTime);
         }
         // Gear Down
         if (Input.GetButtonDown("GearDown"))
         {
-            _playerMovements.DownGear(__speedTransitionTime);
+            _playerMovements.DownGear(_speedTransitionTime);
         }
 
         if (Input.GetButtonDown("Pause"))
