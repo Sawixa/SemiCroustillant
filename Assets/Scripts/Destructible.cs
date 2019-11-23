@@ -18,7 +18,7 @@ public class Destructible : MonoBehaviour
     void Start()
     {
         Debug.Assert(damagedSprite != null);
-        Debug.Assert(_nbHits > 0);
+        Debug.Assert(nbHitsToDestroy > 0);
         _colliderDestructible = GetComponent<Collider2D>();
         _sprRenderer = GetComponent<SpriteRenderer>();
     }

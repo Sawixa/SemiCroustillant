@@ -78,13 +78,13 @@ public class PlayerMovements : MonoBehaviour
     {
         float v = _speed.magnitude;
         double ratio = 1.0/2.0;
-        if( v <= _maxSpeeds[0]* (1-ratio)+_maxSpeeds[1]*ratio )
+        if( v <= _maxSpeeds[0]* (1-ratio)+_maxSpeeds[1]*ratio)
         {
             _animator.SetInteger("Speed", 0);
-        } else if( v >= _maxSpeeds[2]*(1-ratio)+_maxSpeeds[1]*ratio )
+        } else if( v >= _maxSpeeds[2]*(1-ratio)+_maxSpeeds[1]*ratio)
         {
             _animator.SetInteger("Speed", 2);
-        } else
+        } else 
         {
             _animator.SetInteger("Speed", 1);
         }
@@ -92,8 +92,12 @@ public class PlayerMovements : MonoBehaviour
 
     public void Move(Vector2 delta)
     {
+        if (delta.magnitude > 1)
+        {
+            delta.Normalize();
+        }
         
-        _speed = delta.normalized *_maxSpeeds[_gear] ;//for Dash()
+        _speed = delta *_maxSpeeds[_gear] ;//for Dash()
         _speed *= _isDashing ? _dashMultiplier : 1;
         _rigidBody.velocity = _speed;        
 
