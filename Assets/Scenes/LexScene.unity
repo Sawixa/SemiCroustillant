@@ -179,7 +179,6 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  _deb: 15
 --- !u!114 &212308937
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -192,6 +191,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8909ab88d56f68a49a4e846c387efa8f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _dashCD: 5
   _pausePanel: {fileID: 1292462279}
 --- !u!114 &212308938
 MonoBehaviour:
@@ -205,12 +205,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea4d8ce3a9bfd78449a4f864e8a99d7f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: {x: 0, y: 0}
-  maxSpeeds:
+  _maxSpeeds:
   - 5
   - 10
   - 15
   _dashMultiplier: 1.1
+  _dashLength: 1
 --- !u!50 &212308939
 Rigidbody2D:
   serializedVersion: 4
