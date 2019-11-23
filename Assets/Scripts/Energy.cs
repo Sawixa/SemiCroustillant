@@ -11,6 +11,8 @@ public class Energy : MonoBehaviour
 
     private float _energyLevel;
 
+    public float energy => this._energyLevel;
+
     [Tooltip("Regain d'énergie")]
     [SerializeField] private float _energyRegen;
 
@@ -52,7 +54,8 @@ public class Energy : MonoBehaviour
         if (!dying)
         {
             Debug.Assert(_playerMovements.MaxSpeeds[_playerMovements.MaxSpeeds.Length - 1] > float.Epsilon, "Vitesse maximale nulle.");
-            _energyLevel = Mathf.Clamp(_energyLevel + (_energyRegen - _energyCost.Evaluate(_playerMovements.Speed.magnitude / _playerMovements.MaxSpeeds[_playerMovements.MaxSpeeds.Length - 1])) * Time.deltaTime, 0f, 100f);
+            if(!_playerMovements.IsDashing)
+                _energyLevel = Mathf.Clamp(_energyLevel + (_energyRegen - _energyCost.Evaluate(_playerMovements.Speed.magnitude / _playerMovements.MaxSpeeds[_playerMovements.MaxSpeeds.Length - 1])) * Time.deltaTime, 0f, 100f);
             _light2D.pointLightOuterRadius = _lightRadius.Evaluate(_energyLevel / 100f);
         }
 
@@ -63,6 +66,11 @@ public class Energy : MonoBehaviour
 
         _timeSinceDamaged += Time.deltaTime;
 
+    }
+
+    public void add(float x)
+    {
+        _energyLevel += x;
     }
 
     private IEnumerator Die()
