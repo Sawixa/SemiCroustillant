@@ -50,7 +50,7 @@ public class Energy : MonoBehaviour
 
         if (_energyLevel < float.Epsilon && !dying)
         {
-            StartCoroutine(Die());
+            //StartCoroutine(Die());
         }
 
 
