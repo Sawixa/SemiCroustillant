@@ -78,7 +78,6 @@ public class PlayerMovements : MonoBehaviour
     {
         float v = _speed.magnitude;
         double ratio = 1.0/2.0;
-        Debug.Log(v.ToString());
         if( v <= _maxSpeeds[0]* (1-ratio)+_maxSpeeds[1]*ratio )
         {
             _animator.SetInteger("Speed", 0);
@@ -102,8 +101,6 @@ public class PlayerMovements : MonoBehaviour
 
     public void Dash()
     {
-        Debug.Log("Dash");
-
         StartCoroutine(DashCoroutine());
         //_rigidBody.velocity = _speed * _dashMultiplier;
     }
