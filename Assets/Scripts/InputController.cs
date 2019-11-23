@@ -14,8 +14,10 @@ public class InputController : MonoBehaviour
     float _timer;
     float __speedTransitionTime;
 
+
     [Tooltip("Menu de pause")]
     [SerializeField] GameObject _pausePanel;
+
     bool _pauseState = false;
 
 
@@ -51,7 +53,7 @@ public class InputController : MonoBehaviour
 
 
         //Dash
-        if (Input.GetButton("Dash") && _timer < 0)
+        if (Input.GetButton("Dash") && _timer < _dashCD)
         {
             _playerMovements.Dash();
         }
@@ -61,7 +63,7 @@ public class InputController : MonoBehaviour
     void Pause(bool pauseState)
     {
         Time.timeScale = pauseState ? 0 : 1;
-        _pausePanel.SetActive(_pauseState);
+        //_pausePanel.SetActive(_pauseState);
     }
 
 }
