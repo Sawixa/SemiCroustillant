@@ -53,6 +53,12 @@ public class PlayerMovements : MonoBehaviour
     [SerializeField] private float _dashMultiplier;
     [SerializeField] private float _dashLength;
     private bool _isDashing;
+
+    public bool IsDashing
+    {
+        get { return _isDashing; }
+        private set { _isDashing = value; }
+    }
      void Start()
     {
         _rigidBody = transform.GetComponent<Rigidbody2D>();
