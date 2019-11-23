@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(PlayerMovements))]
 public class Energy : MonoBehaviour
@@ -14,8 +15,7 @@ public class Energy : MonoBehaviour
 
     [SerializeField] private AnimationCurve _energyCoost;
 
-    //TODO Remove, get value from pM
-    [SerializeField] private float _deb;
+    private bool dying;
 
     //Internal
     private PlayerMovements _playerMovements;
@@ -34,8 +34,24 @@ public class Energy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        _energyLevel = Mathf.Clamp(_energyLevel + (_energyRegen - _energyCoost.Evaluate(_playerMovements.speed.magnitude/_deb))*Time.deltaTime, 0f, 100f);
+        //clamp new energy level between 0 and 100
+        if (!dying)
+        {
+            _energyLevel = Mathf.Clamp(_energyLevel + (_energyRegen - _energyCoost.Evaluate(_playerMovements.speed.magnitude / _playerMovements.maxSpeeds[_playerMovements.maxSpeeds.Length - 1])) * Time.deltaTime, 0f, 100f);
+            Debug.Assert(_playerMovements.maxSpeeds[_playerMovements.maxSpeeds.Length] > float.Epsilon, "Vitesse maximale nulle.");
+        }
+
+        if (_energyLevel < float.Epsilon && !dying)
+        {
+            StartCoroutine(Die());
+        }
     }
 
-
+    private IEnumerator Die()
+    {
+        Array.Clear(_playerMovements.maxSpeeds, 0, _playerMovements.maxSpeeds.Length);
+        dying = true;
+        yield return new WaitForSeconds(2f);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
 }
