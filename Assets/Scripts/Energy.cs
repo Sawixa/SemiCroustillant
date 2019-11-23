@@ -28,6 +28,9 @@ public class Energy : MonoBehaviour
     [SerializeField] private float _blinkIntensity;
     [SerializeField] private Color _blinkColor;
 
+    private bool _isDefensive = false;
+    private bool _isOffensive = false;
+
     private float _timeSinceDamaged;
 
     private bool dying;
@@ -89,11 +92,26 @@ public class Energy : MonoBehaviour
     {
         if (collision.gameObject.layer == Mathf.RoundToInt(Mathf.Log(_ennemyLayer.value, 2)) && _timeSinceDamaged > _damageRecoveryTime + float.Epsilon)
         {
-            _timeSinceDamaged = 0f;
             EnnemyIA ennemy = collision.gameObject.GetComponent<EnnemyIA>();
             Debug.Assert(ennemy != null);
-            _energyLevel = Mathf.Clamp(_energyLevel - ennemy.EnergyDamage, 0, 100);
-            StartCoroutine(Blink());
+
+            //Tuer un rino
+            if (collision.gameObject.GetComponent<RinoScript>() != null && _playerMovements.IsDashing && _isOffensive)
+            {
+                Destroy(collision.gameObject);
+            }
+            //Tuer un essaim
+            else if (collision.gameObject.GetComponent<SwarnScript>() != null && _playerMovements.IsDashing)
+            {
+                Destroy(collision.gameObject);
+            }
+            //Perdre de l'énergie
+            else
+            {
+                _timeSinceDamaged = 0f;
+                _energyLevel = Mathf.Clamp(_energyLevel - ennemy.EnergyDamage * (_isDefensive ? .5f : 1f), 0, 100);
+                StartCoroutine(Blink());
+            }
         }
     }
 

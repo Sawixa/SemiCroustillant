@@ -210,6 +210,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _dashCD: 1
+  _dashCost: 20
   _pausePanel: {fileID: 0}
 --- !u!61 &584362590
 BoxCollider2D:
@@ -275,20 +276,29 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 0
       value: 0
-      inSlope: 60
-      outSlope: 60
-      tangentMode: 34
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
       weightedMode: 0
       inWeight: 0
-      outWeight: 0.33333334
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.38821143
+      value: 3.9898853
+      inSlope: 107.00349
+      outSlope: 107.00349
+      tangentMode: 0
+      weightedMode: 1
+      inWeight: 0.11989539
+      outWeight: 0.16910294
     - serializedVersion: 3
       time: 1
       value: 60
-      inSlope: 60
-      outSlope: 60
-      tangentMode: 34
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
       weightedMode: 0
-      inWeight: 0.33333334
+      inWeight: 0
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
@@ -317,3 +327,10 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  _ennemyLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  _damageRecoveryTime: 0
+  _blinkTime: 0
+  _blinkIntensity: 0
+  _blinkColor: {r: 0, g: 0, b: 0, a: 0}
