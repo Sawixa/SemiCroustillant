@@ -76,12 +76,24 @@ public class PlayerMovements : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        float v = _speed.magnitude;
+        double ratio = 1.0/2.0;
+        if( v <= _maxSpeeds[0]* (1-ratio)+_maxSpeeds[1]*ratio )
+        {
+            _animator.SetInteger("Speed", 0);
+        } else if( v >= _maxSpeeds[2]*(1-ratio)+_maxSpeeds[1]*ratio )
+        {
+            _animator.SetInteger("Speed", 2);
+        } else
+        {
+            _animator.SetInteger("Speed", 1);
+        }
     }
 
     public void Move(Vector2 delta)
     {
         
-        _speed = delta *_maxSpeeds[_gear] ;//for Dash()
+        _speed = delta.normalized *_maxSpeeds[_gear] ;//for Dash()
         _speed *= _isDashing ? _dashMultiplier : 1;
         _rigidBody.velocity = _speed;        
 
@@ -89,8 +101,6 @@ public class PlayerMovements : MonoBehaviour
 
     public void Dash()
     {
-        Debug.Log("Dash");
-
         StartCoroutine(DashCoroutine());
         //_rigidBody.velocity = _speed * _dashMultiplier;
     }
@@ -110,7 +120,7 @@ public class PlayerMovements : MonoBehaviour
         if (_gear >= 2)
             _gear = 2;
         else
-            ++_gear;_animator.SetTrigger("UpGear");
+            ++_gear;
     }
 
     /*
@@ -121,6 +131,6 @@ public class PlayerMovements : MonoBehaviour
         if (_gear <= 0)
             _gear = 0;
         else
-            --_gear;_animator.SetTrigger("DownGear");
+            --_gear;
     }
 }
