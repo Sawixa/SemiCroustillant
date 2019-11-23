@@ -195,7 +195,7 @@ MonoBehaviour:
   - 5
   - 10
   - 15
-  _dashMultiplier: 5
+  _dashMultiplier: 3
   _dashLength: 0.2
 --- !u!114 &8420802462112974873
 MonoBehaviour:
@@ -210,6 +210,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _dashCD: 1
+  _dashCost: 0
   _pausePanel: {fileID: 0}
 --- !u!61 &584362590
 BoxCollider2D:
@@ -317,3 +318,10 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  _ennemyLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  _damageRecoveryTime: 0
+  _blinkTime: 0
+  _blinkIntensity: 0
+  _blinkColor: {r: 0, g: 0, b: 0, a: 0}

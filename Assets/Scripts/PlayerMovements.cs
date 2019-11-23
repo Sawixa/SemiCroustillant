@@ -92,8 +92,12 @@ public class PlayerMovements : MonoBehaviour
 
     public void Move(Vector2 delta)
     {
+        if (delta.magnitude > 1)
+        {
+            delta.Normalize();
+        }
         
-        _speed = delta.normalized *_maxSpeeds[_gear] ;//for Dash()
+        _speed = delta *_maxSpeeds[_gear] ;//for Dash()
         _speed *= _isDashing ? _dashMultiplier : 1;
         _rigidBody.velocity = _speed;        
 
