@@ -76,6 +76,17 @@ public class PlayerMovements : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        float v = _speed.magnitude;
+        if( v <= _maxSpeeds[0]*2/3+_maxSpeeds[1]*1/3 )
+        {
+            _animator.SetInteger("Speed", 0);
+        } else if( v >= _maxSpeeds[2]*2/3+_maxSpeeds[1]*1/3 )
+        {
+            _animator.SetInteger("Speed", 2);
+        } else
+        {
+            _animator.SetInteger("Speed", 1);
+        }
     }
 
     public void Move(Vector2 delta)
@@ -110,7 +121,7 @@ public class PlayerMovements : MonoBehaviour
         if (_gear >= 2)
             _gear = 2;
         else
-            ++_gear;_animator.SetTrigger("UpGear");
+            ++_gear;
     }
 
     /*
@@ -121,6 +132,6 @@ public class PlayerMovements : MonoBehaviour
         if (_gear <= 0)
             _gear = 0;
         else
-            --_gear;_animator.SetTrigger("DownGear");
+            --_gear;
     }
 }
