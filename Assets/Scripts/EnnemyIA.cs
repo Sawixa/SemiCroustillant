@@ -7,7 +7,7 @@ using UnityEngine.Experimental.Rendering.LWRP;
 public abstract class EnnemyIA : MonoBehaviour
 {
     protected Light2D _playerLight;
-
+    
 
     protected Vector2 Position
     {
@@ -22,6 +22,32 @@ public abstract class EnnemyIA : MonoBehaviour
     }
 
     private bool _isSpotted = false;
+
+    [SerializeField] protected float _energyDamage;
+    public float EnergyDamage
+    {
+        get
+        {
+            return _energyDamage;
+        }
+        private set
+        {
+            _energyDamage = value;
+        }
+    }
+
+    /*[SerializeField] protected float _knockBack;
+    public float KnockBack
+    {
+        get
+        {
+            return _knockBack;
+        }
+        private set
+        {
+            _knockBack = value;
+        }
+    }*/
 
     [SerializeField] protected float _step;
     [SerializeField] private AnimationCurve _spottedSpeed;
@@ -66,7 +92,7 @@ public abstract class EnnemyIA : MonoBehaviour
 
             _timeSinceSpotted += Time.deltaTime;
         }
-
+        _rigidBody.angularVelocity = 0f;
         Position += _dir * _speed * Time.deltaTime;
     }
 
