@@ -27,6 +27,8 @@ public class PlayerMovements : MonoBehaviour
     private int _gear; // 0 1 or 2
 
     [SerializeField] private float _dashMultiplier;
+    [SerializeField] private float _dashLength;
+    private bool _isDashing;
      void Start()
     {
         _rigidBody = transform.GetComponent<Rigidbody2D>();
@@ -34,6 +36,8 @@ public class PlayerMovements : MonoBehaviour
         Debug.Assert(_rigidBody != null);
         Debug.Assert(_maxSpeeds[0] < _maxSpeeds[1] && _maxSpeeds[1] < _maxSpeeds[2]);
         Debug.Assert(_dashMultiplier > 0);
+        Debug.Assert(_dashLength > 0);
+        _isDashing = false;
     }
 
     // Update is called once per frame
@@ -47,13 +51,22 @@ public class PlayerMovements : MonoBehaviour
         //Vector2 newpos = Position + delta * _maxSpeeds[_gear];
 
         _speed = delta *_maxSpeeds[_gear] ;//for Dash()
+        _speed *= _isDashing ? _dashMultiplier : 1;
         _rigidBody.velocity = _speed;        
     }
 
     public void Dash()
     {
         Debug.Log("Dash");
-        _rigidBody.velocity = _speed * _dashMultiplier;
+        StartCoroutine(DashCoroutine());
+        //_rigidBody.velocity = _speed * _dashMultiplier;
+    }
+
+    IEnumerator DashCoroutine()
+    {
+        _isDashing = true;
+        yield return new WaitForSeconds(_dashLength);
+        _isDashing = false;
     }
 
     /*
