@@ -131,6 +131,6 @@ public abstract class EnnemyIA : MonoBehaviour
     private void OnBecameInvisible()
     {
         _isSpotted = false;
-        Destroy(gameObject);
+        //Destroy(gameObject);
     }
 }

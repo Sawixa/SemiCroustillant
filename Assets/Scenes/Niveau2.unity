@@ -97,7 +97,7 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 1
+  m_UseShadowmask: 0
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -7698,7 +7698,6 @@ MonoBehaviour:
   - "J'aper\xE7ois des lueurs au loin... Serait-ce le village cach\xE9 ?"
   _speakers:
   - {fileID: 1924927311}
-  - {fileID: 0}
   _sentenceSpeaker: 00000000
   _typingSpeed: 0.03
   _continueButton: {fileID: 129297776}
@@ -7747,7 +7746,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1149094031
 MonoBehaviour:
   m_ObjectHideFlags: 0
