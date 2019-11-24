@@ -5,6 +5,9 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 public class PlayerMovements : MonoBehaviour
 {
+    private TrailRenderer _trailRenderer;
+    [SerializeField] private ParticleSystem _dashParticle;
+
     private Vector2 _speed;
     
     public Vector2 Speed
@@ -61,7 +64,14 @@ public class PlayerMovements : MonoBehaviour
         get { return _isDashing; }
         private set { _isDashing = value; }
     }
-     void Start()
+
+
+    private void Awake()
+    {
+        _trailRenderer = GetComponent<TrailRenderer>();
+    }
+
+    void Start()
     {
         _rigidBody = transform.GetComponent<Rigidbody2D>();
         _animator = GetComponent<Animator>();
@@ -70,7 +80,7 @@ public class PlayerMovements : MonoBehaviour
         Debug.Assert(MaxSpeeds[0] < MaxSpeeds[1] && MaxSpeeds[1] < MaxSpeeds[2]);
         Debug.Assert(_dashMultiplier > 0);
         Debug.Assert(_dashLength > 0);
-        _isDashing = false;
+        IsDashing = false;
     }
 
     // Update is called once per frame
@@ -112,9 +122,14 @@ public class PlayerMovements : MonoBehaviour
 
     IEnumerator DashCoroutine()
     {
-        _isDashing = true;
+        IsDashing = true;
+        _trailRenderer.enabled = true;
+        _dashParticle.gameObject.SetActive(true);
         yield return new WaitForSeconds(_dashLength);
-        _isDashing = false;
+        IsDashing = false;
+        yield return new WaitForSeconds(_trailRenderer.time);
+        _trailRenderer.enabled = false;
+        _dashParticle.gameObject.SetActive(false);
     }
 
     /*
