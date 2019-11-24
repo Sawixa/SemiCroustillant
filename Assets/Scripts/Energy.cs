@@ -129,6 +129,7 @@ public class Energy : MonoBehaviour
                 {
                     _timeSinceDamaged = 0f;
                     _energyLevel = Mathf.Clamp(_energyLevel - ennemy.EnergyDamage * (_isDefensive ? .5f : 1f), 0, 100);
+                    AudioManager.PlaySFX("Coup");
                     StartCoroutine(Blink());
                 }
             }

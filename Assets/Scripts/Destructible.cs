@@ -35,12 +35,14 @@ public class Destructible : MonoBehaviour
                 if (_nbHits == 1)
                 {
                     _sprRenderer.sprite = damagedSprite;
+                    AudioManager.PlaySFX("Arbre_fissure");
                 }
                 if (_nbHits >= nbHitsToDestroy)
                 {
                     _colliderDestructible.enabled = false;
                     _sprRenderer.enabled = false;
                     Animator animSmoke = GetComponentInChildren<Animator>();
+                    AudioManager.PlaySFX("Arbre_detruit");
                     animSmoke.SetTrigger("Destroy");
                     // TODO Destroy wall
                 }
