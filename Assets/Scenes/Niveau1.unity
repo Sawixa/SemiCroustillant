@@ -97,7 +97,7 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 1
+  m_UseShadowmask: 0
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -635,7 +635,7 @@ Camera:
     height: 1
   near clip plane: 0.1
   far clip plane: 5000
-  field of view: 70
+  field of view: 40
   orthographic: 0
   orthographic size: 10
   m_Depth: -1
@@ -661,7 +661,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 165407096}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -45.223984, y: -5.6, z: -10}
+  m_LocalPosition: {x: -94.5, y: 0, z: -30.69}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -5771,6 +5771,11 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8420802462112974873, guid: 99ccf04ebff03ef4581dd2da58f6acc2,
+        type: 3}
+      propertyPath: _pausePanel
+      value: 
+      objectReference: {fileID: 1937280078}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 99ccf04ebff03ef4581dd2da58f6acc2, type: 3}
 --- !u!4 &500626071 stripped
@@ -6380,7 +6385,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &562223255
 RectTransform:
   m_ObjectHideFlags: 0
@@ -21348,6 +21353,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5f514f56fbbfded448f48854b9a39d16, type: 3}
+--- !u!1 &1937280078 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3580605737603319042, guid: 5f514f56fbbfded448f48854b9a39d16,
+    type: 3}
+  m_PrefabInstance: {fileID: 1937280077}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1945500118
 PrefabInstance:
   m_ObjectHideFlags: 0

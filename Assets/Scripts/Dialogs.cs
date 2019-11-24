@@ -81,7 +81,7 @@ public class Dialogs : MonoBehaviour
             else
             {
                 _dialogAnimator.SetTrigger("Fade");
-                Invoke("LoadNextLvl", 1.1f);
+                Invoke("LoadNextLvl", 2.5f);
             }
         }
     }
