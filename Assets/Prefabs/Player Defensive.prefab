@@ -327,8 +327,8 @@ MonoBehaviour:
   _energyBar: {fileID: 8150711524064986206}
   _logo: {fileID: 8150711522964346072}
   _blinkColor: {r: 1, g: 0, b: 0, a: 1}
-  _isDefensive: 0
-  _isOffensive: 1
+  _isDefensive: 1
+  _isOffensive: 0
 --- !u!1 &8150711522964346078
 GameObject:
   m_ObjectHideFlags: 0

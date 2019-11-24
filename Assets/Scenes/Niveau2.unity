@@ -3584,7 +3584,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _offensivePlayerPrefab: {fileID: 2421228859328177992, guid: c38686d2f5429b44dafc4391dbe46473,
     type: 3}
-  _defensivePlayerPrefab: {fileID: 0}
+  _defensivePlayerPrefab: {fileID: 5801984474141539621, guid: 77fd9f4306faf8a4e82698b4b3cfd418,
+    type: 3}
   _vanillaPlayerPrefab: {fileID: 8420802462112974886, guid: 99ccf04ebff03ef4581dd2da58f6acc2,
     type: 3}
   _pausePanel: {fileID: 239514019}
