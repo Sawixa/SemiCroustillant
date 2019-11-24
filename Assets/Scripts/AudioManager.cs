@@ -10,7 +10,6 @@ public class AudioManager : MonoBehaviour
 {
     #region VARIABLES
 
-
     public static AudioManager instance;
     public AudioFile[] audioFiles;
     private float timeToReset;
@@ -29,10 +28,8 @@ public class AudioManager : MonoBehaviour
     #endregion
 
 
-    // Use this for initialization
 
     void Awake()
-
     {
         if (instance is null)
         {
@@ -60,15 +57,11 @@ public class AudioManager : MonoBehaviour
     }
 
 
-
     #region METHODS
-
-    public static void PlayMusic(string name)
-
+    public static void PlaySFX(string name)
     {
         AudioFile s = Array.Find(instance.audioFiles, AudioFile => AudioFile.audioName == name);
-
-        if (s == null)
+        if (s is null)
 
         {
             Debug.LogError("Sound name" + name + "not found!");
@@ -77,15 +70,16 @@ public class AudioManager : MonoBehaviour
 
         else
         {
-            s.source.Play();
+            if (!s.source.isPlaying)
+                s.source.Play();
         }
     }
 
 
-    public static void StopMusic(String name)
+    public static void StopSFX(string name)
     {
         AudioFile s = Array.Find(instance.audioFiles, AudioFile => AudioFile.audioName == name);
-        if (s == null)
+        if (s is null)
         {
             Debug.LogError("Sound name" + name + "not found!");
             return;
@@ -98,12 +92,12 @@ public class AudioManager : MonoBehaviour
     }
 
 
-    public static void PauseMusic(String name)
+    public static void PauseSFX(string name)
 
     {
         AudioFile s = Array.Find(instance.audioFiles, AudioFile => AudioFile.audioName == name);
 
-        if (s == null)
+        if (s is null)
         {
             Debug.LogError("Sound name" + name + "not found!");
             return;
@@ -116,11 +110,11 @@ public class AudioManager : MonoBehaviour
     }
 
 
-    public static void UnPauseMusic(String name)
+    public static void UnPauseSFX(string name)
     {
         AudioFile s = Array.Find(instance.audioFiles, AudioFile => AudioFile.audioName == name);
 
-        if (s == null)
+        if (s is null)
         {
             Debug.LogError("Sound name" + name + "not found!");
             return;
@@ -133,12 +127,30 @@ public class AudioManager : MonoBehaviour
     }
 
 
-    public static void LowerVolume(String name, float _duration)
+
+    public static AudioFile Find(string name)
+    {
+        AudioFile s = Array.Find(instance.audioFiles, AudioFile => AudioFile.audioName == name);
+
+        if (s is null)
+        {
+            Debug.LogError("Sound name" + name + "not found!");
+            return null;
+        }
+
+        else
+        {
+            return s;
+        }
+    }
+
+
+    public static void LowerVolume(string name, float _duration)
     {
         if (instance.isLowered == false)
         {
             AudioFile s = Array.Find(instance.audioFiles, AudioFile => AudioFile.audioName == name);
-            if (s == null)
+            if (s is null)
             {
                 Debug.LogError("Sound name" + name + "not found!");
                 return;
@@ -157,23 +169,20 @@ public class AudioManager : MonoBehaviour
     }
 
 
-    public static void FadeOut(String name, float duration)
+    public static void FadeOut(string name, float duration)
     {
         instance.StartCoroutine(instance.IFadeOut(name, duration));
     }
 
 
-    public static void FadeIn(String name, float targetVolume, float duration)
+    public static void FadeIn(string name, float targetVolume, float duration)
     {
         instance.StartCoroutine(instance.IFadeIn(name, targetVolume, duration));
     }
 
 
 
-
-    //not for use
-
-    private IEnumerator IFadeOut(String name, float duration)
+    private IEnumerator IFadeOut(string name, float duration)
     {
         AudioFile s = Array.Find(instance.audioFiles, AudioFile => AudioFile.audioName == name);
 
@@ -206,7 +215,7 @@ public class AudioManager : MonoBehaviour
             else
             {
                 Debug.Log("Could not handle two fade outs at once : " + name + " , " + fadeOutUsedString + "! Stopped the music " + name);
-                StopMusic(name);
+                StopSFX(name);
             }
         }
     }
@@ -215,7 +224,7 @@ public class AudioManager : MonoBehaviour
     public IEnumerator IFadeIn(string name, float targetVolume, float duration)
     {
         AudioFile s = Array.Find(instance.audioFiles, AudioFile => AudioFile.audioName == name);
-        if (s == null)
+        if (s is null)
         {
             Debug.LogError("Sound name" + name + "not found!");
             yield return null;
@@ -243,8 +252,8 @@ public class AudioManager : MonoBehaviour
             else
             {
                 Debug.Log("Could not handle two fade ins at once: " + name + " , " + fadeInUsedString + "! Played the music " + name);
-                StopMusic(fadeInUsedString);
-                PlayMusic(name);
+                StopSFX(fadeInUsedString);
+                PlaySFX(name);
             }
         }
     }
