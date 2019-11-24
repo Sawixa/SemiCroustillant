@@ -670,7 +670,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &239514018
 PrefabInstance:
@@ -727,7 +727,7 @@ PrefabInstance:
     - target: {fileID: 2862707093129651866, guid: 5f514f56fbbfded448f48854b9a39d16,
         type: 3}
       propertyPath: m_RootOrder
-      value: 13
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 2862707093129651866, guid: 5f514f56fbbfded448f48854b9a39d16,
         type: 3}
@@ -2786,7 +2786,7 @@ GameObject:
   - component: {fileID: 1149094032}
   - component: {fileID: 1149094031}
   m_Layer: 5
-  m_Name: Dialog_Canvas
+  m_Name: DialogFIN_Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2865,7 +2865,7 @@ RectTransform:
   m_Children:
   - {fileID: 1126090178}
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -3663,7 +3663,7 @@ RectTransform:
   m_Children:
   - {fileID: 1618858323}
   m_Father: {fileID: 0}
-  m_RootOrder: 12
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
