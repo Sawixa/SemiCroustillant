@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Experimental.Rendering.LWRP;
+using UnityEngine.UI;
 
 [RequireComponent(typeof(PlayerMovements))]
 public class Energy : MonoBehaviour
@@ -26,10 +27,13 @@ public class Energy : MonoBehaviour
 
     [SerializeField] private float _blinkTime;
     [SerializeField] private float _blinkIntensity;
+
+    [SerializeField] private Image _energyBar;
+    [SerializeField] private Image _logo;
     [SerializeField] private Color _blinkColor;
 
-    private bool _isDefensive = false;
-    private bool _isOffensive = false;
+    [SerializeField] private bool _isDefensive = false;
+    [SerializeField] private bool _isOffensive = false;
 
     private float _timeSinceDamaged;
 
@@ -51,6 +55,7 @@ public class Energy : MonoBehaviour
     void Start()
     {
         _energyLevel = 100f;
+        StartCoroutine(BlinkWhenLow());
     }
 
     // Update is called once per frame
@@ -64,6 +69,7 @@ public class Energy : MonoBehaviour
             if(!_playerMovements.IsDashing)
                 _energyLevel = Mathf.Clamp(_energyLevel + (_energyRegen - _energyCost.Evaluate(_playerMovements.Speed.magnitude / _playerMovements.MaxSpeeds[_playerMovements.MaxSpeeds.Length - 1])) * Time.deltaTime, 0f, 100f);
             _light2D.pointLightOuterRadius = _lightRadius.Evaluate(_energyLevel / 100f);
+            _energyBar.fillAmount = _energyLevel / 100f;
         }
 
         if (_energyLevel < float.Epsilon && !dying)
@@ -118,15 +124,31 @@ public class Energy : MonoBehaviour
     private IEnumerator Blink()
     {
         float intensity = _light2D.intensity;
-        Color color = _light2D.color;
         while (_timeSinceDamaged < _damageRecoveryTime - float.Epsilon)
         {
             _light2D.intensity = _blinkIntensity;
-            _light2D.color = _blinkColor;
             yield return new WaitForSeconds(_blinkTime);
             _light2D.intensity = intensity;
-            _light2D.color = color;
             yield return new WaitForSeconds(_blinkTime);
+        }
+        yield return null;
+    }
+
+    private IEnumerator BlinkWhenLow()
+    {
+        Color color = _logo.color;
+        while (true)
+        {
+            if (_energyLevel < 33f)
+            {
+                _logo.color = _logo.color == _blinkColor ? color : _blinkColor;
+                yield return new WaitForSeconds(_blinkTime*2);
+            }
+            else
+            {
+                _logo.color = color;
+                yield return new WaitForSeconds(.5f);
+            }
         }
         yield return null;
     }
