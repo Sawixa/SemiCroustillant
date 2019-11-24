@@ -97,9 +97,10 @@ public class PlayerMovements : MonoBehaviour
         {
             delta.Normalize();
         }
-        
-        _speed = delta *_maxSpeeds[_gear] ;//for Dash()
-        _speed *= _isDashing ? _dashMultiplier : 1;
+        Vector2 newSpeed = delta * _maxSpeeds[_gear];       
+        newSpeed *= _isDashing ? _dashMultiplier : 1;
+        _speed = (_speed+newSpeed)*0.5f;//mean value
+        //_speed = newSpeed;
         _rigidBody.velocity = _speed;        
 
     }
@@ -107,7 +108,6 @@ public class PlayerMovements : MonoBehaviour
     public void Dash()
     {
         StartCoroutine(DashCoroutine());
-        //_rigidBody.velocity = _speed * _dashMultiplier;
     }
 
     IEnumerator DashCoroutine()
