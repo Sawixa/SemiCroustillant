@@ -5,16 +5,25 @@ using UnityEngine.SceneManagement;
 
 public class EndLevel : MonoBehaviour
 {
+    [SerializeField] GameObject _endDialog;
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.GetComponent<PlayerMovements>() != null)
-            Skip();
+        {
+            AudioManager.PlaySFX("Porte");
+            _endDialog.SetActive(true);
+            Invoke("Skip", 2);
+        }
     }
 
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Keypad0))
-            Skip();
+        {
+            _endDialog.SetActive(true);
+            Invoke("Skip", 2);
+        }
     }
 
     private void Skip()

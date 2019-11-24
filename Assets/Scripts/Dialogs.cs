@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class Dialogs : MonoBehaviour
 {
@@ -15,6 +16,8 @@ public class Dialogs : MonoBehaviour
 
     [SerializeField] GameObject _continueButton;
     Animator _dialogAnimator;
+
+    [SerializeField] bool _isEndDialog = false;
 
 
     private void Start()
@@ -52,7 +55,7 @@ public class Dialogs : MonoBehaviour
 
         if (_index < _sentenceSpeaker.Length)
         {
-            foreach(GameObject g in _speakers)
+            foreach (GameObject g in _speakers)
             {
                 g.SetActive(false);
             }
@@ -67,10 +70,19 @@ public class Dialogs : MonoBehaviour
         }
         else
         {
-            _textDisplay.text = "";
-            _dialogAnimator.SetTrigger("Disappear");
-            
-            Invoke("Hide", 1.2f);
+            if (!_isEndDialog)
+            {
+                _textDisplay.text = "";
+                _dialogAnimator.SetTrigger("Disappear");
+
+                Invoke("Hide", 1.2f);
+
+            }
+            else
+            {
+                _dialogAnimator.SetTrigger("Fade");
+                Invoke("LoadNextLvl", 1.1f);
+            }
         }
     }
 
@@ -82,5 +94,10 @@ public class Dialogs : MonoBehaviour
     void Hide()
     {
         gameObject.SetActive(false);
+    }
+
+    void LoadNextLvl()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 }

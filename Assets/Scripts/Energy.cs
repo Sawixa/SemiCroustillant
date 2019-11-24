@@ -95,6 +95,7 @@ public class Energy : MonoBehaviour
         spRd.enabled = false;
         _rigidBody.simulated = false;
         _deathParticles.Play();
+        AudioManager.PlaySFX("Sparkle");
         yield return new WaitForSeconds(2f);
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
