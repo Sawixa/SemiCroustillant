@@ -20,6 +20,17 @@ public class InputController : MonoBehaviour
 
     [Tooltip("Menu de pause")]
     [SerializeField] GameObject _pausePanel;
+    public GameObject PausePanel
+    {
+        get
+        {
+            return _pausePanel;
+        }
+        set
+        {
+            _pausePanel = value;
+        }
+    }
 
     bool _pauseState = false;
 
@@ -75,7 +86,7 @@ public class InputController : MonoBehaviour
     void Pause(bool pauseState)
     {
         Time.timeScale = pauseState ? 0 : 1;
-        _pausePanel.SetActive(_pauseState);
+        PausePanel.SetActive(_pauseState);
     }
 
 }
