@@ -121,6 +121,33 @@ public class Energy : MonoBehaviour
         }
     }
 
+    private void OnCollisionStay2D(Collision2D collision)
+    {
+        if (collision.gameObject.layer == Mathf.RoundToInt(Mathf.Log(_ennemyLayer.value, 2)) && _timeSinceDamaged > _damageRecoveryTime + float.Epsilon)
+        {
+            EnnemyIA ennemy = collision.gameObject.GetComponent<EnnemyIA>();
+            Debug.Assert(ennemy != null);
+
+            //Tuer un rino
+            if (collision.gameObject.GetComponent<RinoScript>() != null && _playerMovements.IsDashing && _isOffensive)
+            {
+                Destroy(collision.gameObject);
+            }
+            //Tuer un essaim
+            else if (collision.gameObject.GetComponent<SwarnScript>() != null && _playerMovements.IsDashing)
+            {
+                Destroy(collision.gameObject);
+            }
+            //Perdre de l'énergie
+            else
+            {
+                _timeSinceDamaged = 0f;
+                _energyLevel = Mathf.Clamp(_energyLevel - ennemy.EnergyDamage * (_isDefensive ? .5f : 1f), 0, 100);
+                StartCoroutine(Blink());
+            }
+        }
+    }
+
     private IEnumerator Blink()
     {
         float intensity = _light2D.intensity;
