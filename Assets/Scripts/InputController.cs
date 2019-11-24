@@ -20,6 +20,7 @@ public class InputController : MonoBehaviour
 
     [Tooltip("Menu de pause")]
     [SerializeField] GameObject _pausePanel;
+    [SerializeField] GameObject _dialogue;
     public GameObject PausePanel
     {
         get
@@ -80,6 +81,11 @@ public class InputController : MonoBehaviour
                 _timeOfLastDash = curTime;
             }
             
+        }
+
+        if (Input.GetKeyDown(KeyCode.Tab))
+        {
+            _dialogue.SetActive(false);
         }
 
     }
