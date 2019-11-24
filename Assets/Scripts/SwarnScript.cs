@@ -14,4 +14,9 @@ public class SwarnScript : EnnemyIA
             _dir = Vector3.Lerp(_dir, newDir, Mathf.Abs(_step / angle)).normalized;
         }
     }
+
+    public override void Die()
+    {
+        Destroy(gameObject);
+    }
 }

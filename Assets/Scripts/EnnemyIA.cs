@@ -100,6 +100,11 @@ public abstract class EnnemyIA : MonoBehaviour
     {
     }
 
+    public virtual void Die()
+    {
+        Destroy(gameObject);
+    }
+
     private void OnBecameInvisible()
     {
         _isSpotted = false;

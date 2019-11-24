@@ -40,6 +40,8 @@ public class Destructible : MonoBehaviour
                 {
                     _colliderDestructible.enabled = false;
                     _sprRenderer.enabled = false;
+                    Animator animSmoke = GetComponentInChildren<Animator>();
+                    animSmoke.SetTrigger("Destroy");
                     // TODO Destroy wall
                 }
 
