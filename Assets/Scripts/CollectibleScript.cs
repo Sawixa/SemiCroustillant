@@ -24,7 +24,7 @@ public class CollectibleScript : MonoBehaviour
         PlayerMovements playMov = collision.gameObject.GetComponent<PlayerMovements>();
         if (playMov != null) // we found the player
         {
-            Debug.Log("We found the player !");
+            //Debug.Log("We found the player !");
             Energy nrj = collision.gameObject.GetComponent<Energy>();
 
             nrj.add(_bonus);
