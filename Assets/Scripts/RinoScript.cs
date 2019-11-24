@@ -11,4 +11,9 @@ public class RinoScript : EnnemyIA
         transform.rotation = Quaternion.Euler(0, 0, zDir);
         _dir = -transform.right;
     }
+
+    public override void Die()
+    {
+        Destroy(gameObject);
+    }
 }
