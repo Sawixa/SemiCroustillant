@@ -102,17 +102,15 @@ public class Energy : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.layer == Mathf.RoundToInt(Mathf.Log(_ennemyLayer.value, 2)) && _timeSinceDamaged > _damageRecoveryTime + float.Epsilon)
+        if (collision.gameObject.layer == Mathf.RoundToInt(Mathf.Log(_ennemyLayer.value, 2)))
         {
             EnnemyIA ennemy = collision.gameObject.GetComponent<EnnemyIA>();
             Debug.Assert(ennemy != null);
 
-            
-
             //Tuer un rino
             RinoScript rinoScript = collision.gameObject.GetComponent<RinoScript>();
             if (rinoScript != null && _playerMovements.IsDashing && _isOffensive)
-            { 
+            {
                 rinoScript.Die();
             }
 
@@ -124,8 +122,9 @@ public class Energy : MonoBehaviour
                 {
                     swarnScript.Die();
                 }
+
                 //Perdre de l'énergie
-                else
+                else if (_timeSinceDamaged > _damageRecoveryTime + float.Epsilon)
                 {
                     _timeSinceDamaged = 0f;
                     _energyLevel = Mathf.Clamp(_energyLevel - ennemy.EnergyDamage * (_isDefensive ? .5f : 1f), 0, 100);
@@ -137,7 +136,7 @@ public class Energy : MonoBehaviour
 
     private void OnCollisionStay2D(Collision2D collision)
     {
-        if (collision.gameObject.layer == Mathf.RoundToInt(Mathf.Log(_ennemyLayer.value, 2)) && _timeSinceDamaged > _damageRecoveryTime + float.Epsilon)
+        if (collision.gameObject.layer == Mathf.RoundToInt(Mathf.Log(_ennemyLayer.value, 2)))
         {
             EnnemyIA ennemy = collision.gameObject.GetComponent<EnnemyIA>();
             Debug.Assert(ennemy != null);
@@ -158,7 +157,7 @@ public class Energy : MonoBehaviour
                     swarnScript.Die();
                 }
                 //Perdre de l'énergie
-                else
+                else if (_timeSinceDamaged > _damageRecoveryTime + float.Epsilon)
                 {
                     _timeSinceDamaged = 0f;
                     _energyLevel = Mathf.Clamp(_energyLevel - ennemy.EnergyDamage * (_isDefensive ? .5f : 1f), 0, 100);
