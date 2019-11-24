@@ -75,7 +75,7 @@ public class InputController : MonoBehaviour
     void Pause(bool pauseState)
     {
         Time.timeScale = pauseState ? 0 : 1;
-        //_pausePanel.SetActive(_pauseState);
+        _pausePanel.SetActive(_pauseState);
     }
 
 }
