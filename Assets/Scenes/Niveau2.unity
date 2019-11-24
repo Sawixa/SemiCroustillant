@@ -97,7 +97,7 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 0
+  m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -156,38 +156,38 @@ MonoBehaviour:
     source: {fileID: 0}
     isLooping: 0
     playOnAwake: 1
-  - audioName: 
+  - audioName: Arbre detruit
+    audioClip: {fileID: 8300000, guid: 51ff0aee054a6e8498baff06871124b9, type: 3}
+    volume: 0
+    source: {fileID: 0}
+    isLooping: 0
+    playOnAwake: 0
+  - audioName: Arbre_fissure
     audioClip: {fileID: 0}
     volume: 0
     source: {fileID: 0}
     isLooping: 0
     playOnAwake: 0
-  - audioName: 
+  - audioName: Coup
     audioClip: {fileID: 0}
     volume: 0
     source: {fileID: 0}
     isLooping: 0
     playOnAwake: 0
-  - audioName: 
+  - audioName: Porte
     audioClip: {fileID: 0}
     volume: 0
     source: {fileID: 0}
     isLooping: 0
     playOnAwake: 0
-  - audioName: 
-    audioClip: {fileID: 0}
+  - audioName: Sparkle
+    audioClip: {fileID: 8300000, guid: 20b1408db54f55c4294aa44b8da127f5, type: 3}
     volume: 0
     source: {fileID: 0}
     isLooping: 0
     playOnAwake: 0
-  - audioName: 
-    audioClip: {fileID: 0}
-    volume: 0
-    source: {fileID: 0}
-    isLooping: 0
-    playOnAwake: 0
-  - audioName: 
-    audioClip: {fileID: 0}
+  - audioName: Swoosh
+    audioClip: {fileID: 8300000, guid: bf649f415a9741944a7e9ef9c929280a, type: 3}
     volume: 0
     source: {fileID: 0}
     isLooping: 0
@@ -1921,7 +1921,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1149094031
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2559,7 +2559,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -11.799988, y: -322.91003}
+  m_AnchoredPosition: {x: -11.800049, y: -322.91003}
   m_SizeDelta: {x: -175.6, y: -743.15}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1817311130
