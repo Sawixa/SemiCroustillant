@@ -19,6 +19,6 @@ public class EndLevel : MonoBehaviour
 
     private void Skip()
     {
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene(2);
     }
 }
