@@ -7,7 +7,17 @@ using UnityEngine.Experimental.Rendering.LWRP;
 public abstract class EnnemyIA : MonoBehaviour
 {
     protected Light2D _playerLight;
-    
+    public Light2D PlayerLight
+    {
+        get
+        {
+            return _playerLight;
+        }
+        set
+        {
+            _playerLight = value;
+        }
+    }
 
     protected Vector2 Position
     {
@@ -65,21 +75,34 @@ public abstract class EnnemyIA : MonoBehaviour
         _timeSinceSpotted = 0f;
     }
 
+    private void OnEnable()
+    {
+        PlayerMovements player = FindObjectOfType<PlayerMovements>();
+        if (player != null && _playerLight == null)
+            _playerLight = player.GetComponentInChildren<Light2D>();
+    }
+
     // Start is called before the first frame update
     void Start()
     {
-        _playerLight = FindObjectOfType<PlayerMovements>().GetComponentInChildren<Light2D>();
+        PlayerMovements player = FindObjectOfType<PlayerMovements>();
+        if (player != null && _playerLight == null)
+            _playerLight = FindObjectOfType<PlayerMovements>().GetComponentInChildren<Light2D>();
         _dir = Vector2.left;
     }
 
     // Update is called once per frame
     void Update()
     {
-        float distance = Vector2.Distance(Position, _playerLight.transform.position);
-        if (distance < _playerLight.pointLightOuterRadius - float.Epsilon)
-            _isSpotted = true;
-        if (Position.x < _playerLight.transform.position.x - 1)
-            _isSpotted = false;
+        if (_playerLight != null)
+        {
+            float distance = Vector2.Distance(Position, _playerLight.transform.position);
+            if (distance < _playerLight.pointLightOuterRadius - float.Epsilon)
+                _isSpotted = true;
+            if (Position.x < _playerLight.transform.position.x - 1)
+                _isSpotted = false;
+        }
+        
     }
 
     private void FixedUpdate()

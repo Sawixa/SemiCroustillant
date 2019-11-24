@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
+using UnityEngine.Experimental.Rendering.LWRP;
 
 public class UpgradeMenu : MonoBehaviour
 {
@@ -29,6 +30,7 @@ public class UpgradeMenu : MonoBehaviour
         _cinemachine.Follow = player.transform;
         player.GetComponent<InputController>().PausePanel = _pausePanel;
         Destroy(gameObject);
+        Activate(player);
     }
 
     public void Defensive()
@@ -37,6 +39,7 @@ public class UpgradeMenu : MonoBehaviour
         _cinemachine.Follow = player.transform;
         player.GetComponent<InputController>().PausePanel = _pausePanel;
         Destroy(gameObject);
+        Activate(player);
     }
 
     public void Vanilla()
@@ -45,5 +48,17 @@ public class UpgradeMenu : MonoBehaviour
         _cinemachine.Follow = player.transform;
         player.GetComponent<InputController>().PausePanel = _pausePanel;
         Destroy(gameObject);
+        Activate(player);
+    }
+
+    private void Activate(GameObject player)
+    {
+        Light2D playerLight = player.GetComponentInChildren<Light2D>();
+
+        EnnemyIA[] ennemies = FindObjectsOfType<EnnemyIA>();
+        for (int i = 0; i < ennemies.Length; ++i)
+        {
+            ennemies[i].PlayerLight = playerLight;
+        }
     }
 }
