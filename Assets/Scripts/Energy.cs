@@ -43,6 +43,7 @@ public class Energy : MonoBehaviour
     private PlayerMovements _playerMovements;
     private Light2D _light2D;
     private Rigidbody2D _rigidBody;
+    [SerializeField] private ParticleSystem _deathParticles;
 
     private void Awake()
     {
@@ -90,6 +91,10 @@ public class Energy : MonoBehaviour
     {
         Array.Clear(_playerMovements.MaxSpeeds, 0, _playerMovements.MaxSpeeds.Length);
         dying = true;
+        SpriteRenderer spRd = GetComponent<SpriteRenderer>();
+        spRd.enabled = false;
+        _rigidBody.simulated = false;
+        _deathParticles.Play();
         yield return new WaitForSeconds(2f);
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
