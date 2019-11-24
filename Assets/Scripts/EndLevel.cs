@@ -8,6 +8,17 @@ public class EndLevel : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.GetComponent<PlayerMovements>() != null)
-            SceneManager.LoadScene(0);
+            Skip();
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Keypad0))
+            Skip();
+    }
+
+    private void Skip()
+    {
+        SceneManager.LoadScene(0);
     }
 }

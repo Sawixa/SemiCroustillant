@@ -101,22 +101,30 @@ public class Energy : MonoBehaviour
             EnnemyIA ennemy = collision.gameObject.GetComponent<EnnemyIA>();
             Debug.Assert(ennemy != null);
 
+            
+
             //Tuer un rino
-            if (collision.gameObject.GetComponent<RinoScript>() != null && _playerMovements.IsDashing && _isOffensive)
-            {
-                Destroy(collision.gameObject);
+            RinoScript rinoScript = collision.gameObject.GetComponent<RinoScript>();
+            if (rinoScript != null && _playerMovements.IsDashing && _isOffensive)
+            { 
+                rinoScript.Die();
             }
-            //Tuer un essaim
-            else if (collision.gameObject.GetComponent<SwarnScript>() != null && _playerMovements.IsDashing)
-            {
-                Destroy(collision.gameObject);
-            }
-            //Perdre de l'énergie
+
             else
             {
-                _timeSinceDamaged = 0f;
-                _energyLevel = Mathf.Clamp(_energyLevel - ennemy.EnergyDamage * (_isDefensive ? .5f : 1f), 0, 100);
-                StartCoroutine(Blink());
+                //Tuer un essaim
+                SwarnScript swarnScript = collision.gameObject.GetComponent<SwarnScript>();
+                if (swarnScript != null && _playerMovements.IsDashing)
+                {
+                    swarnScript.Die();
+                }
+                //Perdre de l'énergie
+                else
+                {
+                    _timeSinceDamaged = 0f;
+                    _energyLevel = Mathf.Clamp(_energyLevel - ennemy.EnergyDamage * (_isDefensive ? .5f : 1f), 0, 100);
+                    StartCoroutine(Blink());
+                }
             }
         }
     }
@@ -129,21 +137,27 @@ public class Energy : MonoBehaviour
             Debug.Assert(ennemy != null);
 
             //Tuer un rino
-            if (collision.gameObject.GetComponent<RinoScript>() != null && _playerMovements.IsDashing && _isOffensive)
+            RinoScript rinoScript = collision.gameObject.GetComponent<RinoScript>();
+            if (rinoScript != null && _playerMovements.IsDashing && _isOffensive)
             {
-                Destroy(collision.gameObject);
+                rinoScript.Die();
             }
-            //Tuer un essaim
-            else if (collision.gameObject.GetComponent<SwarnScript>() != null && _playerMovements.IsDashing)
+            
+            else 
             {
-                Destroy(collision.gameObject);
-            }
-            //Perdre de l'énergie
-            else
-            {
-                _timeSinceDamaged = 0f;
-                _energyLevel = Mathf.Clamp(_energyLevel - ennemy.EnergyDamage * (_isDefensive ? .5f : 1f), 0, 100);
-                StartCoroutine(Blink());
+                //Tuer un essaim
+                SwarnScript swarnScript = collision.gameObject.GetComponent<SwarnScript>();
+                if (swarnScript != null && _playerMovements.IsDashing)
+                {
+                    swarnScript.Die();
+                }
+                //Perdre de l'énergie
+                else
+                {
+                    _timeSinceDamaged = 0f;
+                    _energyLevel = Mathf.Clamp(_energyLevel - ennemy.EnergyDamage * (_isDefensive ? .5f : 1f), 0, 100);
+                    StartCoroutine(Blink());
+                }
             }
         }
     }
