@@ -72,6 +72,7 @@ public class InputController : MonoBehaviour
         if (Input.GetButton("Dash"))
         {
             float curTime = Time.time;
+            AudioManager.PlaySFX("Swoosh");
             if (curTime > _timeOfLastDash + _dashCD && _energy.energy >= _dashCost + 5)
             {
                 _energy.add(-_dashCost);
