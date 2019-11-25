@@ -8337,7 +8337,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: DialogText
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: ee9dc1811d2b2b5408280f9c8314c327, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: d4a5bc72fc529d0408477f8aadd34123, type: 2}
   m_sharedMaterial: {fileID: -5520676910255389330, guid: ee9dc1811d2b2b5408280f9c8314c327,
     type: 2}
   m_fontSharedMaterials: []
@@ -8416,7 +8416,7 @@ MonoBehaviour:
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
-  m_hasFontAssetChanged: 0
+  m_hasFontAssetChanged: 1
   m_subTextObjects:
   - {fileID: 0}
   - {fileID: 0}
