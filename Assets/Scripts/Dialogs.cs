@@ -12,7 +12,7 @@ public class Dialogs : MonoBehaviour
     [SerializeField] int[] _sentenceSpeaker;
 
     int _index;
-    [SerializeField] float _typingSpeed = .03f;
+    [SerializeField] float _typingSpeed = .045f;
 
     [SerializeField] GameObject _continueButton;
     Animator _dialogAnimator;
@@ -32,6 +32,7 @@ public class Dialogs : MonoBehaviour
     {
         if (_textDisplay.text == _sentences[_index])
         {
+            // TODO Wait for typing end
             _continueButton.SetActive(true);
         }
     }
@@ -80,7 +81,6 @@ public class Dialogs : MonoBehaviour
             }
             else
             {
-                Debug.Log("Fade");
                 _dialogAnimator.SetTrigger("Fade");
                 Invoke("LoadNextLvl", 2.5f);
             }

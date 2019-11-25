@@ -46,11 +46,11 @@ MonoBehaviour:
   audioFiles:
   - audioName: BG_Music
     audioClip: {fileID: 8300000, guid: 04b90b8b56c0b9341ae22e07d092613e, type: 3}
-    volume: 0.7
+    volume: 0.5
     source: {fileID: 0}
     isLooping: 1
     playOnAwake: 1
-  - audioName: Arbre detruit
+  - audioName: Arbre_detruit
     audioClip: {fileID: 8300000, guid: 359f25ffbeea528438f06e0f6c3d4e28, type: 3}
     volume: 1
     source: {fileID: 0}
