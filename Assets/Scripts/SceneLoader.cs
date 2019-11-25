@@ -5,16 +5,18 @@ using UnityEngine.SceneManagement;
 
 public class SceneLoader : MonoBehaviour
 {
-    public static SceneLoader instance;
+    //public static SceneLoader instance;
     int _sceneToLoad;
     bool _canLoadGame = false;
+    int _counter = 0;
+    //[SerializeField] GameObject _splash;
 
     void Start()
     {
         _sceneToLoad = SceneManager.GetActiveScene().buildIndex + 1;
         if (_sceneToLoad == 1)
         {
-            StartCoroutine(StartGame());
+            //StartCoroutine(StartGame());
         }
         else if (_sceneToLoad <= SceneManager.sceneCountInBuildSettings)
         {
@@ -27,13 +29,30 @@ public class SceneLoader : MonoBehaviour
         }
     }
 
+    private void Update()
+    {
+        if(Input.anyKeyDown)
+        {
+            _counter += 1;
+            StartCoroutine(StartGame());
+        }
+    }
+
     IEnumerator StartGame()
     {
         Animator FadeOut = GameObject.Find("StartMenu").GetComponent<Animator>();
-        yield return new WaitUntil(() => Input.anyKey);
-        FadeOut.SetTrigger("FadeOut");
-        yield return new WaitForSeconds(1.25f);
-        SceneManager.LoadScene(_sceneToLoad);
+        //yield return new WaitUntil(() => Input.anyKey);
+        //_counter += 1;
+        if (_counter > 1)
+        {
+            FadeOut.SetTrigger("FadeOut");
+            yield return new WaitForSeconds(1.25f);
+            SceneManager.LoadScene(_sceneToLoad);
+        }
+        else if (_counter == 1)
+        {
+            FadeOut.SetTrigger("Switch");
+        }
     }
 
     public void Load()

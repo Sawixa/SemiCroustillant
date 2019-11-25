@@ -1,0 +1,106 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &6286449244739704286
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6286449244739704284}
+  - component: {fileID: 6286449244739704285}
+  m_Layer: 0
+  m_Name: AudioManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6286449244739704284
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6286449244739704286}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6286449244739704285
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6286449244739704286}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5db1d8ecc6701b64ca78b425111adb22, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioFiles:
+  - audioName: BG_Music
+    audioClip: {fileID: 8300000, guid: 04b90b8b56c0b9341ae22e07d092613e, type: 3}
+    volume: 0.7
+    source: {fileID: 0}
+    isLooping: 1
+    playOnAwake: 1
+  - audioName: Arbre detruit
+    audioClip: {fileID: 8300000, guid: 359f25ffbeea528438f06e0f6c3d4e28, type: 3}
+    volume: 1
+    source: {fileID: 0}
+    isLooping: 0
+    playOnAwake: 0
+  - audioName: Arbre_fissure
+    audioClip: {fileID: 8300000, guid: 4564fe4f6def9e2499c5083c7bfa428a, type: 3}
+    volume: 1
+    source: {fileID: 0}
+    isLooping: 0
+    playOnAwake: 0
+  - audioName: Coup
+    audioClip: {fileID: 8300000, guid: 93f90a389215bfd4ebb245469aa757de, type: 3}
+    volume: 1
+    source: {fileID: 0}
+    isLooping: 0
+    playOnAwake: 0
+  - audioName: Porte
+    audioClip: {fileID: 8300000, guid: 53a9c54ba60aeb341b4ee9e15d7889c8, type: 3}
+    volume: 1
+    source: {fileID: 0}
+    isLooping: 0
+    playOnAwake: 0
+  - audioName: Sparkle
+    audioClip: {fileID: 8300000, guid: e2acee1dbc188344badc8534c2b4cfbf, type: 3}
+    volume: 1
+    source: {fileID: 0}
+    isLooping: 0
+    playOnAwake: 0
+  - audioName: Swoosh
+    audioClip: {fileID: 8300000, guid: bf649f415a9741944a7e9ef9c929280a, type: 3}
+    volume: 1
+    source: {fileID: 0}
+    isLooping: 0
+    playOnAwake: 0
+  - audioName: 
+    audioClip: {fileID: 0}
+    volume: 0
+    source: {fileID: 0}
+    isLooping: 0
+    playOnAwake: 0
+  - audioName: 
+    audioClip: {fileID: 0}
+    volume: 0
+    source: {fileID: 0}
+    isLooping: 0
+    playOnAwake: 0
+  - audioName: 
+    audioClip: {fileID: 0}
+    volume: 0
+    source: {fileID: 0}
+    isLooping: 0
+    playOnAwake: 0

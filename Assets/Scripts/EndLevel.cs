@@ -13,7 +13,6 @@ public class EndLevel : MonoBehaviour
         {
             AudioManager.PlaySFX("Porte");
             _endDialog.SetActive(true);
-            Invoke("Skip", 2);
         }
     }
 
