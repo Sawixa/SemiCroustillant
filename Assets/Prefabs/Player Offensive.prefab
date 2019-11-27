@@ -9709,8 +9709,8 @@ MonoBehaviour:
   _particleOffset: 0.5
   _maxSpeeds:
   - 5
-  - 10
   - 15
+  - 20
   _dashMultiplier: 3
   _dashLength: 0.2
 --- !u!114 &4341203257625630638
@@ -9728,6 +9728,7 @@ MonoBehaviour:
   _dashCD: 0.5
   _dashCost: 10
   _pausePanel: {fileID: 0}
+  _dialogue: {fileID: 0}
 --- !u!61 &7363896010238036187
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -9837,7 +9838,7 @@ MonoBehaviour:
   _ennemyLayer:
     serializedVersion: 2
     m_Bits: 256
-  _damageRecoveryTime: 2
+  _damageRecoveryTime: 1
   _blinkTime: 0.2
   _blinkIntensity: 0
   _energyBar: {fileID: 6009597084063384405}

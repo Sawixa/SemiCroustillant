@@ -118,7 +118,7 @@ public class Energy : MonoBehaviour
             {
                 //Tuer un essaim
                 SwarnScript swarnScript = collision.gameObject.GetComponent<SwarnScript>();
-                if (swarnScript != null && _playerMovements.IsDashing)
+                if (swarnScript != null && _playerMovements.IsDashing && !_isDefensive)
                 {
                     swarnScript.Die();
                 }
@@ -153,7 +153,7 @@ public class Energy : MonoBehaviour
             {
                 //Tuer un essaim
                 SwarnScript swarnScript = collision.gameObject.GetComponent<SwarnScript>();
-                if (swarnScript != null && _playerMovements.IsDashing)
+                if (swarnScript != null && _playerMovements.IsDashing && !_isDefensive)
                 {
                     swarnScript.Die();
                 }
