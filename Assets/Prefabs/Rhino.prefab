@@ -138,6 +138,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _energyDamage: 30
+  _knockBack: 10
+  _knockBackDuration: 1
   _step: 2
   _spottedSpeed:
     serializedVersion: 2

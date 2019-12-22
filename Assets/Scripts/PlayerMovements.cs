@@ -25,6 +25,13 @@ public class PlayerMovements : MonoBehaviour
         }
     }
 
+    //Durée totale du knockback
+    private float _knockBackTotalDuration;
+    //Durée restante de knockback
+    private float _knockBackDuration;
+    //Direction du knockback
+    private Vector2 _knockBackDirection;
+
     public Vector2 Position
     {
         get
@@ -83,6 +90,7 @@ public class PlayerMovements : MonoBehaviour
         Debug.Assert(_dashMultiplier > 0);
         Debug.Assert(_dashLength > 0);
         IsDashing = false;
+        _knockBackDirection = Vector2.zero;
     }
 
     // Update is called once per frame
@@ -102,6 +110,10 @@ public class PlayerMovements : MonoBehaviour
             _animator.SetInteger("Speed", 1);
         }
 
+        //TODO Check l'exponentiel ici
+        _knockBackDirection = (_knockBackDuration > _knockBackTotalDuration) ? Vector2.zero : Mathf.Lerp(_knockBackDirection.magnitude,0f,_knockBackDuration/_knockBackTotalDuration)*_knockBackDirection.normalized;
+        _knockBackDuration += Time.deltaTime;
+
         float angle = Mathf.Atan2(Speed.y,Speed.x)*180/Mathf.PI;
         _dashParticle.transform.rotation = Quaternion.Euler(angle, -90, 0);
         _dashParticle2.transform.rotation = Quaternion.Euler(angle, -90, 0);
@@ -118,8 +130,13 @@ public class PlayerMovements : MonoBehaviour
         newSpeed *= _isDashing ? _dashMultiplier : 1;
         _speed = (_speed+newSpeed)*0.5f;//mean value
         //_speed = newSpeed;
-        _rigidBody.velocity = _speed;        
+        if (!IsDashing && _knockBackDuration < _knockBackTotalDuration)
+        {
+            _speed += _knockBackDirection;
+            Debug.Log("KnockBack!");
+        }
 
+        _rigidBody.velocity = _speed;
     }
 
     public void Dash()
@@ -164,5 +181,14 @@ public class PlayerMovements : MonoBehaviour
             _gear = 0;
         else
             --_gear;
+    }
+
+    public void KnockBack(Vector2 direction, float intensity, float duration)
+    {
+        Debug.Assert(duration > float.Epsilon);
+
+        _knockBackDirection = direction.normalized * intensity;
+        _knockBackDuration = 0f;
+        _knockBackTotalDuration = duration;
     }
 }

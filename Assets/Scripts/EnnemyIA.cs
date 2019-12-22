@@ -46,7 +46,7 @@ public abstract class EnnemyIA : MonoBehaviour
         }
     }
 
-    /*[SerializeField] protected float _knockBack;
+    [SerializeField] protected float _knockBack;
     public float KnockBack
     {
         get
@@ -57,7 +57,20 @@ public abstract class EnnemyIA : MonoBehaviour
         {
             _knockBack = value;
         }
-    }*/
+    }
+
+    [SerializeField] protected float _knockBackDuration;
+    public float KnockBackDuration
+    {
+        get
+        {
+            return _knockBackDuration;
+        }
+        private set
+        {
+            _knockBackDuration = value;
+        }
+    }
 
     [SerializeField] protected float _step;
     [SerializeField] private AnimationCurve _spottedSpeed;

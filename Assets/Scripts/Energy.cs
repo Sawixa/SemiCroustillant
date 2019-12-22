@@ -67,8 +67,14 @@ public class Energy : MonoBehaviour
         if (!dying)
         {
             Debug.Assert(_playerMovements.MaxSpeeds[_playerMovements.MaxSpeeds.Length - 1] > float.Epsilon, "Vitesse maximale nulle.");
-            if(!_playerMovements.IsDashing)
-                _energyLevel = Mathf.Clamp(_energyLevel + (_energyRegen - _energyCost.Evaluate(_playerMovements.Speed.magnitude / _playerMovements.MaxSpeeds[_playerMovements.MaxSpeeds.Length - 1])) * Time.deltaTime, 0f, 100f);
+
+            if (!_playerMovements.IsDashing && _timeSinceDamaged > _damageRecoveryTime + float.Epsilon)
+            {
+                //Regain energy
+                float cost = _energyCost.Evaluate(_playerMovements.Speed.magnitude / _playerMovements.MaxSpeeds[_playerMovements.MaxSpeeds.Length - 1]);
+                _energyLevel += (_energyRegen - cost) * Time.deltaTime;
+            }
+
             _light2D.pointLightOuterRadius = _lightRadius.Evaluate(_energyLevel / 100f);
             _energyBar.fillAmount = _energyLevel / 100f;
         }
@@ -80,6 +86,7 @@ public class Energy : MonoBehaviour
 
         _timeSinceDamaged += Time.deltaTime;
 
+        _energyLevel = Mathf.Clamp(_energyLevel,0f,100f);
     }
 
     public void add(float x)
@@ -104,34 +111,7 @@ public class Energy : MonoBehaviour
     {
         if (collision.gameObject.layer == Mathf.RoundToInt(Mathf.Log(_ennemyLayer.value, 2)))
         {
-            EnnemyIA ennemy = collision.gameObject.GetComponent<EnnemyIA>();
-            Debug.Assert(ennemy != null);
-
-            //Tuer un rino
-            RinoScript rinoScript = collision.gameObject.GetComponent<RinoScript>();
-            if (rinoScript != null && _playerMovements.IsDashing && _isOffensive)
-            {
-                rinoScript.Die();
-            }
-
-            else
-            {
-                //Tuer un essaim
-                SwarnScript swarnScript = collision.gameObject.GetComponent<SwarnScript>();
-                if (swarnScript != null && _playerMovements.IsDashing && !_isDefensive)
-                {
-                    swarnScript.Die();
-                }
-
-                //Perdre de l'énergie
-                else if (_timeSinceDamaged > _damageRecoveryTime + float.Epsilon)
-                {
-                    _timeSinceDamaged = 0f;
-                    _energyLevel = Mathf.Clamp(_energyLevel - ennemy.EnergyDamage * (_isDefensive ? .5f : 1f), 0, 100);
-                    AudioManager.PlaySFX("Coup");
-                    StartCoroutine(Blink());
-                }
-            }
+            ManageEnnemyCollision(collision);
         }
     }
 
@@ -139,31 +119,37 @@ public class Energy : MonoBehaviour
     {
         if (collision.gameObject.layer == Mathf.RoundToInt(Mathf.Log(_ennemyLayer.value, 2)))
         {
-            EnnemyIA ennemy = collision.gameObject.GetComponent<EnnemyIA>();
-            Debug.Assert(ennemy != null);
+            ManageEnnemyCollision(collision);
+        }
+    }
 
-            //Tuer un rino
-            RinoScript rinoScript = collision.gameObject.GetComponent<RinoScript>();
-            if (rinoScript != null && _playerMovements.IsDashing && _isOffensive)
+    private void ManageEnnemyCollision(Collision2D collision)
+    {
+        EnnemyIA ennemy = collision.gameObject.GetComponent<EnnemyIA>();
+        Debug.Assert(ennemy != null);
+
+        //Tuer un rino
+        RinoScript rinoScript = collision.gameObject.GetComponent<RinoScript>();
+        if (rinoScript != null && _playerMovements.IsDashing && _isOffensive)
+        {
+            rinoScript.Die();
+        }
+        else
+        {
+            //Tuer un essaim
+            SwarnScript swarnScript = collision.gameObject.GetComponent<SwarnScript>();
+            if (swarnScript != null && _playerMovements.IsDashing && !_isDefensive)
             {
-                rinoScript.Die();
+                swarnScript.Die();
             }
-            
-            else 
+            //Perdre de l'énergie
+            else if (_timeSinceDamaged > _damageRecoveryTime + float.Epsilon)
             {
-                //Tuer un essaim
-                SwarnScript swarnScript = collision.gameObject.GetComponent<SwarnScript>();
-                if (swarnScript != null && _playerMovements.IsDashing && !_isDefensive)
-                {
-                    swarnScript.Die();
-                }
-                //Perdre de l'énergie
-                else if (_timeSinceDamaged > _damageRecoveryTime + float.Epsilon)
-                {
-                    _timeSinceDamaged = 0f;
-                    _energyLevel = Mathf.Clamp(_energyLevel - ennemy.EnergyDamage * (_isDefensive ? .5f : 1f), 0, 100);
-                    StartCoroutine(Blink());
-                }
+                _playerMovements.KnockBack((_playerMovements.Position - (Vector2)ennemy.transform.position).normalized, ennemy.KnockBack, ennemy.KnockBackDuration);
+                _timeSinceDamaged = 0f;
+                _energyLevel = Mathf.Clamp(_energyLevel - ennemy.EnergyDamage * (_isDefensive ? .5f : 1f), 0, 100);
+                AudioManager.PlaySFX("Coup");
+                StartCoroutine(Blink());
             }
         }
     }
