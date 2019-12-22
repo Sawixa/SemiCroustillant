@@ -142,10 +142,12 @@ public class Energy : MonoBehaviour
             {
                 swarnScript.Die();
             }
-            //Perdre de l'énergie
+            //Perdre de l'énergie et knockback du joueur et de l'ennemi
             else if (_timeSinceDamaged > _damageRecoveryTime + float.Epsilon)
             {
-                _playerMovements.KnockBack((_playerMovements.Position - (Vector2)ennemy.transform.position).normalized, ennemy.KnockBack, ennemy.KnockBackDuration);
+                Vector2 knockback = (_playerMovements.Position - (Vector2)ennemy.transform.position).normalized;
+                _playerMovements.KnockBack(knockback, ennemy.KnockBackCurve);
+                ennemy.KnockBack(-knockback);
                 _timeSinceDamaged = 0f;
                 _energyLevel = Mathf.Clamp(_energyLevel - ennemy.EnergyDamage * (_isDefensive ? .5f : 1f), 0, 100);
                 AudioManager.PlaySFX("Coup");

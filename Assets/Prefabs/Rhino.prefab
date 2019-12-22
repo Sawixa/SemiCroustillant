@@ -138,8 +138,54 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _energyDamage: 30
-  _knockBack: 10
-  _knockBackDuration: 1
+  _knockBackCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 10
+      inSlope: -31.666687
+      outSlope: -31.666687
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.0037969062
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: -0.13061057
+      outSlope: -0.12087756
+      tangentMode: 1
+      weightedMode: 1
+      inWeight: 0.90010965
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  _selfKnockBackCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 10
+      inSlope: -143.62701
+      outSlope: -143.62701
+      tangentMode: 0
+      weightedMode: 2
+      inWeight: 0
+      outWeight: 0.020833336
+    - serializedVersion: 3
+      time: 0.8085423
+      value: 0
+      inSlope: -0.374205
+      outSlope: -0.374205
+      tangentMode: 0
+      weightedMode: 1
+      inWeight: 0.95527864
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
   _step: 2
   _spottedSpeed:
     serializedVersion: 2

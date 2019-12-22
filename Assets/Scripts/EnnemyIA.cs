@@ -46,31 +46,19 @@ public abstract class EnnemyIA : MonoBehaviour
         }
     }
 
-    [SerializeField] protected float _knockBack;
-    public float KnockBack
+    [SerializeField] private AnimationCurve _knockBackCurve;
+    public AnimationCurve KnockBackCurve
     {
         get
         {
-            return _knockBack;
-        }
-        private set
-        {
-            _knockBack = value;
+            return _knockBackCurve;
         }
     }
 
-    [SerializeField] protected float _knockBackDuration;
-    public float KnockBackDuration
-    {
-        get
-        {
-            return _knockBackDuration;
-        }
-        private set
-        {
-            _knockBackDuration = value;
-        }
-    }
+    [SerializeField] private AnimationCurve _selfKnockBackCurve;
+    private float _timeSinceKnockBack;
+    private Vector2 _knockBack;
+    private bool _isKnockedBack = false;
 
     [SerializeField] protected float _step;
     [SerializeField] private AnimationCurve _spottedSpeed;
@@ -115,6 +103,8 @@ public abstract class EnnemyIA : MonoBehaviour
             if (Position.x < _playerLight.transform.position.x - 1)
                 _isSpotted = false;
         }
+
+        _timeSinceKnockBack += Time.deltaTime;
         
     }
 
@@ -126,10 +116,33 @@ public abstract class EnnemyIA : MonoBehaviour
         {
             Turn();
 
-            _timeSinceSpotted += Time.deltaTime;
+            _timeSinceSpotted += Time.fixedDeltaTime;
         }
         _rigidBody.angularVelocity = 0f;
-        Position += _dir * _speed * Time.deltaTime;
+        Vector2 displacement = (_dir * _speed) * Time.fixedDeltaTime;
+        Vector2 knockBack = Vector2.zero;
+
+        //Si on est en knockback on évalue la vitesse de poussée et on l'ajoute (si elle est nulle alors on est plus knockback)
+        if (_isKnockedBack)
+        {
+            knockBack = ManageKnockBack();
+        }
+
+        Position += displacement + knockBack;
+    }
+
+    private Vector2 ManageKnockBack()
+    {
+        float magn = _knockBackCurve.Evaluate(_timeSinceKnockBack);
+        if (magn < float.Epsilon)
+        {
+            _isKnockedBack = false;
+            return Vector2.zero;
+        }
+        else
+        {
+            return magn * _knockBack * Time.fixedDeltaTime;
+        }
     }
 
     protected virtual void Turn()
@@ -139,6 +152,13 @@ public abstract class EnnemyIA : MonoBehaviour
     public virtual void Die()
     {
         Destroy(gameObject);
+    }
+
+    public void KnockBack(Vector2 direction)
+    {
+        _timeSinceKnockBack = 0f;
+        _isKnockedBack = true;
+        _knockBack = direction;
     }
 
     private void OnBecameInvisible()
