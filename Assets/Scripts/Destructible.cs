@@ -14,6 +14,8 @@ public class Destructible : MonoBehaviour
     public int nbHitsToDestroy;
     private int _nbHits = 0;
 
+    private float _timeSinceBroken;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -23,14 +25,29 @@ public class Destructible : MonoBehaviour
         _sprRenderer = GetComponent<SpriteRenderer>();
     }
 
+    private void Update()
+    {
+        _timeSinceBroken += Time.deltaTime;
+    }
 
     private void OnCollisionEnter2D(Collision2D collision)
+    {
+        BreakOnPlayerDash(collision);
+    }
+
+    private void OnCollisionStay2D(Collision2D collision)
+    {
+        BreakOnPlayerDash(collision);
+    }
+
+    private void BreakOnPlayerDash(Collision2D collision)
     {
         PlayerMovements playerMovements = collision.gameObject.GetComponent<PlayerMovements>();
         if (playerMovements != null)
         {
-            if (playerMovements.IsDashing)
+            if (playerMovements.IsDashing && _timeSinceBroken > playerMovements.DashLength)
             {
+                _timeSinceBroken = 0f;
                 _nbHits++;
                 if (_nbHits == 1)
                 {

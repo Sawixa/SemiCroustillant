@@ -79,6 +79,13 @@ public class PlayerMovements : MonoBehaviour
 
     [SerializeField] private float _dashMultiplier;
     [SerializeField] private float _dashLength;
+    public float DashLength
+    {
+        get
+        {
+            return _dashLength;
+        }
+    }
     private bool _isDashing;
 
     public bool IsDashing
