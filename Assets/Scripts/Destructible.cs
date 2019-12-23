@@ -43,7 +43,7 @@ public class Destructible : MonoBehaviour
                     _sprRenderer.enabled = false;
                     Animator animSmoke = GetComponentInChildren<Animator>();
                     AudioManager.PlaySFX("Arbre_detruit");
-                    animSmoke.SetTrigger("Destroy");
+                    //animSmoke.SetTrigger("Destroy");
                     // TODO Destroy wall
                 }
 

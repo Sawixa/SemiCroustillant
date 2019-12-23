@@ -70,19 +70,28 @@ public class Energy : MonoBehaviour
 
             if (!_playerMovements.IsDashing && _timeSinceDamaged > _damageRecoveryTime + float.Epsilon)
             {
-                //Regain energy
+/* Cout en récupération
+                _energyLevel += (_energyRegen) * Time.deltaTime;
+*/
+
+/* Pas de cout en récupération */
                 float cost = _energyCost.Evaluate(_playerMovements.Speed.magnitude / _playerMovements.MaxSpeeds[_playerMovements.MaxSpeeds.Length - 1]);
                 _energyLevel += (_energyRegen - cost) * Time.deltaTime;
             }
 
+            /* Cout en récupération
+            _energyLevel -= _energyCost.Evaluate(_playerMovements.Speed.magnitude / _playerMovements.MaxSpeeds[_playerMovements.MaxSpeeds.Length - 1]) * Time.deltaTime;
+            */
             _light2D.pointLightOuterRadius = _lightRadius.Evaluate(_energyLevel / 100f);
             _energyBar.fillAmount = _energyLevel / 100f;
+
+            if (_energyLevel < float.Epsilon)
+            {
+                StartCoroutine(Die());
+            }
         }
 
-        if (_energyLevel < float.Epsilon && !dying)
-        {
-            StartCoroutine(Die());
-        }
+        
 
         _timeSinceDamaged += Time.deltaTime;
 

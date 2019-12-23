@@ -417,7 +417,7 @@ PrefabInstance:
     - target: {fileID: 1474710819382477948, guid: fa05159e0f5c64b44becfc91fc25be86,
         type: 3}
       propertyPath: m_Name
-      value: Rhino
+      value: Test
       objectReference: {fileID: 0}
     - target: {fileID: 1474710819382477945, guid: fa05159e0f5c64b44becfc91fc25be86,
         type: 3}
@@ -1255,7 +1255,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 271888435}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 21.698822, y: 5.35, z: -10}
+  m_LocalPosition: {x: 21.11006, y: 5.35, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -18348,7 +18348,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2146327168}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 21.698822, y: 5.35, z: -10}
+  m_LocalPosition: {x: 21.11006, y: 5.35, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 730590693}
